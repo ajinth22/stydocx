@@ -172,19 +172,24 @@ int main() {
 int main() 
 {
     int pages[50], frame[10], n, f, i, j, k = 0, pageFaults = 0, found;
+    
     printf("Enter number of pages: ");
     scanf("%d", &n);
+    
     printf("Enter the page reference string:\n");
     for (i = 0; i < n; i++) 
     {
         scanf("%d", &pages[i]);
     }
+    
     printf("Enter number of frames: ");
     scanf("%d", &f);
+    
     for (i = 0; i < f; i++)
         frame[i] = -1;
 
     printf("\nPage\tFrames\n");
+    
     for (i = 0; i < n; i++) 
     {
         found = 0;
@@ -204,13 +209,20 @@ int main()
         }
         printf("%d\t", pages[i]);
         for (j = 0; j < f; j++)
-            printf("%s ", frame[j] != -1 ? 
-                (char[]){(char)(frame[j] + '0'), '\0'} : "-");
+        {
+            if (frame[j] != -1)
+                printf("%d ", frame[j]);
+            else
+                printf("- ");
+        }
         printf("\n");
     }
-    printf("\nTotal Page Faults = %d\n", pageFaults);
+
+    printf("\nTotal Page Faults: %d\n", pageFaults);
+
     return 0;
 }
+
 `
       },
       {
