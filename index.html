@@ -165,9 +165,9 @@ int main() {
     return 0;
 }`
       ,
-      {
-        question: "2. write a c program to implement FIFO page replacement technique?",
-        code: `#include <stdio.h>
+     {
+  question: "2. Write a C program to implement FIFO page replacement technique?",
+  code: `#include <stdio.h>
 
 int main() 
 {
@@ -194,7 +194,6 @@ int main()
     {
         found = 0;
 
-        // Check if page is already in a frame
         for (j = 0; j < f; j++) 
         {
             if (frame[j] == pages[i]) 
@@ -204,7 +203,6 @@ int main()
             }
         }
 
-        // If not found, replace page using FIFO
         if (!found) 
         {
             frame[k] = pages[i];
@@ -212,7 +210,6 @@ int main()
             pageFaults++;
         }
 
-        // Print current page and frames
         printf("%d\t", pages[i]);
         for (j = 0; j < f; j++) 
         {
@@ -226,8 +223,9 @@ int main()
 
     printf("\nTotal Page Faults = %d\n", pageFaults);
     return 0;
-}
-,
+}`
+},
+
       {
         question: "3.write a c program to implement paging technique",
         code: `#include <stdio.h>
