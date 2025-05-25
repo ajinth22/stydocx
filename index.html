@@ -217,6 +217,62 @@ print("Duplicates:", duplicates)`
     a = 10 / 0
 except ZeroDivisionError:
     print("You can't divide by zero!")`
+      },
+      {
+        question: "13. Find factorial using iteration.",
+        code: `def factorial_iter(n):
+    result = 1
+    for i in range(2, n+1):
+        result *= i
+    return result
+
+print(factorial_iter(5))`
+      },
+      {
+        question: "14. Merge two dictionaries.",
+        code: `dict1 = {'a': 1, 'b': 2}
+dict2 = {'b': 3, 'c': 4}
+merged = {**dict1, **dict2}
+print(merged)`
+      },
+      {
+        question: "15. Filter even numbers from a list.",
+        code: `nums = [1, 2, 3, 4, 5, 6]
+evens = list(filter(lambda x: x % 2 == 0, nums))
+print(evens)`
+      },
+      {
+        question: "16. Create a set from a list to remove duplicates.",
+        code: `nums = [1, 2, 2, 3, 4, 4, 5]
+unique_nums = set(nums)
+print(unique_nums)`
+      },
+      {
+        question: "17. Generate Fibonacci series up to n terms.",
+        code: `def fibonacci(n):
+    a, b = 0, 1
+    for _ in range(n):
+        print(a, end=' ')
+        a, b = b, a + b
+
+fibonacci(7)`
+      },
+      {
+        question: "18. Sort a DataFrame by multiple columns.",
+        code: `import pandas as pd
+
+data = {'name': ['Alice', 'Bob', 'Charlie', 'Bob', 'Alice'],
+        'score': [85, 90, 78, 88, 92]}
+df = pd.DataFrame(data)
+sorted_df = df.sort_values(by=['name', 'score'], ascending=[False, True])
+print(sorted_df)`
+      },
+      {
+        question: "19. Check if a string is palindrome.",
+        code: `def is_palindrome(s):
+    return s == s[::-1]
+
+print(is_palindrome("madam"))`
       }
     ];
 
