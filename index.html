@@ -136,7 +136,48 @@
     const tabs = [
       {
         question: "1. Write a Python program to check if a number is even or odd.",
-        code: `num = int(input("Enter a number: "))\nif num % 2 == 0:\n    print("Even")\nelse:\n    print("Odd")`
+        import pandas as pd
+
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie'],
+    'Age': [24, 30, 22],
+    'City': ['New York', 'Paris', 'London']
+}
+
+df = pd.DataFrame(data)
+print("Original DataFrame:")
+print(df)
+
+print("\nSelect 'Name' column:")
+print(df['Name'])
+
+print("\nSelect 'Name' and 'City' columns:")
+print(df[['Name', 'City']])
+
+print("\nSelect second row:")
+print(df.loc[1])
+
+df['Salary'] = [50000, 60000, 55000]
+print("\nAfter adding 'Salary' column:")
+print(df)
+
+df.drop('City', axis=1, inplace=True)
+print("\nAfter deleting 'City' column:")
+print(df)
+
+new_row = {'Name': 'David', 'Age': 28, 'Salary': 62000}
+df.loc[len(df)] = new_row
+print("\nAfter adding a new row:")
+print(df)
+
+df.drop(1, inplace=True)
+print("\nAfter deleting row with index 1:")
+print(df)
+
+df.rename(columns={'Name': 'Employee Name', 'Age': 'Employee Age'}, inplace=True)
+print("\nAfter renaming columns:")
+print(df)
+
       },
       {
         question: "2. Write a Python function to compute factorial.",
