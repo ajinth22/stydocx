@@ -98,6 +98,17 @@
     .copy-btn:hover {
       background-color: #555;
     }
+    .requirements {
+      background-color: #2a2a2a;
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+    .note {
+      color: #ff9999;
+      font-style: italic;
+      margin-top: 10px;
+    }
     @media (max-width: 600px) {
       .tab-button {
         flex: 1 1 50%;
@@ -185,13 +196,15 @@ data = {
 
 df = pd.DataFrame(data)
 
-new_row = {'name': 'k', 'age': 28, 'score': 88}
-df = df.append(new_row, ignore_index=True)
+# Updated to use concat() instead of deprecated append()
+new_row = pd.DataFrame({'name': ['k'], 'age': [28], 'score': [88]})
+df = pd.concat([df, new_row], ignore_index=True)
 
 df = df.drop(df.index[-1])
 
 print(df)
-`
+`,
+        note: "Note: Updated to use pd.concat() instead of deprecated df.append()"
       },
       {
         question: "5. Draw the frequency distribution table and frequency distribution curve for the following data: 2, 3, 1, 4, 2, 2, 3, 1, 4, 4, 4, 2, 2, 2",
@@ -265,10 +278,7 @@ print(f"The probability P(X <= {x}) for N({mean}, {std_dev}^2) is {prob:.4f}")
 `
       },
       {
-        question: "8. Write a python program to implement a multiple linear regression to find the Coefficient, Variance score and plot for residual error.
-
-
-",
+        question: "8. Write a python program to implement a multiple linear regression to find the Coefficient, Variance score and plot for residual error.",
         code: `import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
@@ -483,34 +493,43 @@ plt.show()
 `
       },
       {
-        question: "17. Write a python program to analyze the time series data to read the airline passenger data into a data frame using pandas and generate a time series plot using Seaborn and Matplotlib.",
+        question: "17. Write a python program to analyze time series data (sample data generated)",
         code: `import pandas as pd
-import seaborn as sns
+import numpy as np
 import matplotlib.pyplot as plt
 
-df = pd.read_csv('airline_passengers.csv')
-df['Month'] = pd.to_datetime(df['Month'])
+# Generate sample time series data
+dates = pd.date_range(start='2020-01-01', periods=24, freq='M')
+values = np.random.randint(100, 500, size=24) + np.arange(24)*10
 
-sns.set(style="darkgrid")
+df = pd.DataFrame({'Date': dates, 'Value': values})
+df.set_index('Date', inplace=True)
+
 plt.figure(figsize=(12, 6))
-sns.lineplot(x='Month', y='Passengers', data=df, marker='o')
-plt.title('Monthly Airline Passengers')
-plt.xlabel('Month')
-plt.ylabel('Number of Passengers')
+plt.plot(df.index, df['Value'], marker='o')
+plt.title('Sample Time Series Data')
+plt.xlabel('Date')
+plt.ylabel('Value')
+plt.grid(True)
 plt.show()
-`
+`,
+        note: "Note: Using generated sample data instead of external CSV file"
       },
       {
-        question: "18.Write a python program to analyze the time series on data set with Test Statistics, critical value, rolling mean and pvalue and plot the same using matplotlib.",
+        question: "18.Write a python program to analyze time series data with Test Statistics, critical value, rolling mean and pvalue.",
         code: `import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 from statsmodels.tsa.stattools import adfuller
 
-url = 'https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv'
-df = pd.read_csv(url, parse_dates=['Month'], index_col='Month')
+# Generate sample data
+np.random.seed(42)
+data = pd.Series(np.cumsum(np.random.randn(100)) + 50
 
-data = df.iloc[:, 0]
+# Calculate rolling mean
+rolling_mean = data.rolling(window=12).mean()
 
+# Perform ADF test
 adf_result = adfuller(data.dropna())
 
 adf_statistic = adf_result[0]
@@ -522,8 +541,6 @@ print(f"p-value: {p_value}")
 print("Critical Values:")
 for key, value in critical_values.items():
     print(f"   {key}: {value}")
-
-rolling_mean = data.rolling(window=12).mean()
 
 plt.figure(figsize=(12,6))
 plt.plot(data, label='Original Time Series')
@@ -546,18 +563,19 @@ plt.xlabel('Date')
 plt.ylabel('Value')
 plt.legend()
 plt.show()
-`
+`,
+        note: "Note: Using generated sample data instead of external CSV file"
       },
       {
-        question: "19. Write a python Program to analyze the time series on data set with Rolling mean and pvalue and plot the same using matplotlib.",
+        question: "19.Write a python Program to analyze time series data with Rolling mean and pvalue.",
         code: `import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 from statsmodels.tsa.stattools import adfuller
 
-url = 'https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv'
-df = pd.read_csv(url, parse_dates=['Month'], index_col='Month')
-
-data = df['Passengers']
+# Generate sample data
+np.random.seed(42)
+data = pd.Series(np.cumsum(np.random.randn(100)) + 50
 
 rolling_mean = data.rolling(window=12).mean()
 
@@ -573,12 +591,22 @@ plt.xlabel('Date')
 plt.ylabel('Value')
 plt.legend()
 plt.show()
-`
+`,
+        note: "Note: Using generated sample data instead of external CSV file"
       }
     ];
 
     const tabButtonsContainer = document.getElementById('tab-buttons');
     const tabsContainer = document.getElementById('tabs-container');
+
+    // Add requirements note at the top
+    const requirementsNote = document.createElement('div');
+    requirementsNote.className = 'requirements';
+    requirementsNote.innerHTML = `
+      <strong>Requirements:</strong> To run these Python snippets, you'll need to install:
+      <code>pip install pandas numpy matplotlib scipy scikit-learn statsmodels</code>
+    `;
+    tabsContainer.appendChild(requirementsNote);
 
     tabs.forEach((tab, index) => {
       const button = document.createElement('button');
@@ -606,6 +634,14 @@ plt.show()
       tabDiv.appendChild(question);
       tabDiv.appendChild(pre);
       tabDiv.appendChild(btn);
+      
+      if (tab.note) {
+        const note = document.createElement('div');
+        note.className = 'note';
+        note.textContent = tab.note;
+        tabDiv.appendChild(note);
+      }
+      
       tabsContainer.appendChild(tabDiv);
     });
 
@@ -620,7 +656,14 @@ plt.show()
     function copyCode(index) {
       const code = document.getElementById(`code${index}`).textContent;
       navigator.clipboard.writeText(code).then(() => {
-        alert("Code copied to clipboard!");
+        const originalText = document.querySelector(`#code${index} + .copy-btn`).textContent;
+        document.querySelector(`#code${index} + .copy-btn`).textContent = "Copied!";
+        setTimeout(() => {
+          document.querySelector(`#code${index} + .copy-btn`).textContent = originalText;
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy: ', err);
+        alert("Failed to copy code. Please try again or copy manually.");
       });
     }
   </script>
