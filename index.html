@@ -11,7 +11,6 @@
       background-color: #121212;
       color: #e0e0e0;
     }
-
     header {
       display: flex;
       align-items: center;
@@ -20,7 +19,6 @@
       border-bottom: 1px solid #333;
       gap: 15px;
     }
-
     .logo {
       width: 40px;
       height: 40px;
@@ -34,7 +32,6 @@
       color: #121212;
       user-select: none;
     }
-
     .site-name {
       font-size: 1.8rem;
       font-weight: 900;
@@ -42,14 +39,12 @@
       user-select: none;
       letter-spacing: 2px;
     }
-
     .tabs {
       display: flex;
       flex-wrap: wrap;
       background-color: #1f1f1f;
       border-bottom: 1px solid #333;
     }
-
     .tab-button {
       flex: 1 1 10%;
       padding: 15px;
@@ -61,28 +56,23 @@
       transition: background-color 0.3s;
       font-weight: bold;
     }
-
     .tab-button:hover, .tab-button.active {
       background-color: #333;
       color: #fff;
     }
-
     .tab-content {
       display: none;
       padding: 30px;
       background-color: #121212;
     }
-
     .tab-content.active {
       display: block;
     }
-
     .question {
       font-size: 1.2rem;
       margin-bottom: 15px;
       color: #ffcc00;
     }
-
     pre {
       background-color: #1e1e1e;
       padding: 20px;
@@ -93,7 +83,6 @@
       white-space: pre-wrap;
       word-wrap: break-word;
     }
-
     .copy-btn {
       margin-top: 10px;
       padding: 8px 16px;
@@ -105,11 +94,9 @@
       font-weight: bold;
       transition: background-color 0.3s;
     }
-
     .copy-btn:hover {
       background-color: #555;
     }
-
     @media (max-width: 600px) {
       .tab-button {
         flex: 1 1 50%;
@@ -135,8 +122,8 @@
   <script>
     const tabs = [
       {
-        question: "1. Write a Python program to check if a number is even or odd.",
-        import pandas as pd
+        question: "1. Creating a dataframe from dictionary of ndarray/lists and performing basic operations using pandas.",
+        code: `import pandas as pd
 
 data = {
     'Name': ['Alice', 'Bob', 'Charlie'],
@@ -148,45 +135,108 @@ df = pd.DataFrame(data)
 print("Original DataFrame:")
 print(df)
 
-print("\nSelect 'Name' column:")
+print("\\nSelect 'Name' column:")
 print(df['Name'])
 
-print("\nSelect 'Name' and 'City' columns:")
+print("\\nSelect 'Name' and 'City' columns:")
 print(df[['Name', 'City']])
 
-print("\nSelect second row:")
+print("\\nSelect second row:")
 print(df.loc[1])
 
 df['Salary'] = [50000, 60000, 55000]
-print("\nAfter adding 'Salary' column:")
+print("\\nAfter adding 'Salary' column:")
 print(df)
 
 df.drop('City', axis=1, inplace=True)
-print("\nAfter deleting 'City' column:")
+print("\\nAfter deleting 'City' column:")
 print(df)
 
 new_row = {'Name': 'David', 'Age': 28, 'Salary': 62000}
 df.loc[len(df)] = new_row
-print("\nAfter adding a new row:")
+print("\\nAfter adding a new row:")
 print(df)
 
 df.drop(1, inplace=True)
-print("\nAfter deleting row with index 1:")
+print("\\nAfter deleting row with index 1:")
 print(df)
 
 df.rename(columns={'Name': 'Employee Name', 'Age': 'Employee Age'}, inplace=True)
-print("\nAfter renaming columns:")
-print(df)
-
+print("\\nAfter renaming columns:")
+print(df)`
       },
       {
         question: "2. Write a Python function to compute factorial.",
-        code: `def factorial(n):\n    if n == 0:\n        return 1\n    else:\n        return n * factorial(n-1)\n\nnum = int(input("Enter number: "))\nprint("Factorial:", factorial(num))`
+        code: `def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n-1)
+
+num = int(input("Enter number: "))
+print("Factorial:", factorial(num))`
       },
       {
         question: "3. Write a Python script to reverse a string.",
-        code: `text = input("Enter a string: ")\nreversed_text = text[::-1]\nprint("Reversed:", reversed_text)`
+        code: `text = input("Enter a string: ")
+reversed_text = text[::-1]
+print("Reversed:", reversed_text)`
       }
+       {
+        question: "4. Write a Python script to reverse a string.",
+        code: `text = input("Enter a string: ")
+reversed_text = text[::-1]
+print("Reversed:", reversed_text)`
+      }
+     {
+        question: "5. Write a Python script to reverse a string.",
+        code: `text = input("Enter a string: ")
+reversed_text = text[::-1]
+print("Reversed:", reversed_text)`
+      }
+     {
+        question: "6. Write a Python script to reverse a string.",
+        code: `text = input("Enter a string: ")
+reversed_text = text[::-1]
+print("Reversed:", reversed_text)`
+      }
+     {
+        question: "7. Write a Python script to reverse a string.",
+        code: `text = input("Enter a string: ")
+reversed_text = text[::-1]
+print("Reversed:", reversed_text)`
+      }
+     {
+        question: "8. Write a Python script to reverse a string.",
+        code: `text = input("Enter a string: ")
+reversed_text = text[::-1]
+print("Reversed:", reversed_text)`
+      }
+     {
+        question: "9. Write a Python script to reverse a string.",
+        code: `text = input("Enter a string: ")
+reversed_text = text[::-1]
+print("Reversed:", reversed_text)`
+      }
+     {
+        question: "10. Write a Python script to reverse a string.",
+        code: `text = input("Enter a string: ")
+reversed_text = text[::-1]
+print("Reversed:", reversed_text)`
+      }
+     {
+        question: "11. Write a Python script to reverse a string.",
+        code: `text = input("Enter a string: ")
+reversed_text = text[::-1]
+print("Reversed:", reversed_text)`
+      }
+     {
+        question: "12. Write a Python script to reverse a string.",
+        code: `text = input("Enter a string: ")
+reversed_text = text[::-1]
+print("Reversed:", reversed_text)`
+      }
+    
     ];
 
     const tabButtonsContainer = document.getElementById('tab-buttons');
