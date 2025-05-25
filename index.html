@@ -145,134 +145,435 @@ print("\\nUpdated DataFrame:")
 print(df)`
       },
       {
-        question: "2. Write a function to compute factorial recursively.",
-        code: `def factorial(n):
-    if n == 0:
-        return 1
-    return n * factorial(n-1)
-
-print("Factorial of 5:", factorial(5))`
-      },
-      {
-        question: "3. Reverse a given string.",
-        code: `text = input("Enter a string: ")
-print("Reversed:", text[::-1])`
-      },
-      {
-        question: "4. Check if a number is prime.",
-        code: `def is_prime(n):
-    if n < 2:
-        return False
-    for i in range(2, int(n**0.5) + 1):
-        if n % i == 0:
-            return False
-    return True
-
-print(is_prime(13))`
-      },
-      {
-        question: "5. Find the largest element in a list.",
-        code: `nums = [3, 5, 2, 9, 1]
-print("Largest number is:", max(nums))`
-      },
-      {
-        question: "6. Count vowels in a string.",
-        code: `text = "Hello World"
-vowels = 'aeiouAEIOU'
-count = sum(1 for char in text if char in vowels)
-print("Vowel count:", count)`
-      },
-      {
-        question: "7. Convert Celsius to Fahrenheit.",
-        code: `celsius = float(input("Enter Celsius: "))
-fahrenheit = (celsius * 9/5) + 32
-print("Fahrenheit:", fahrenheit)`
-      },
-      {
-        question: "8. Use a lambda to square a list of numbers.",
-        code: `nums = [1, 2, 3, 4]
-squares = list(map(lambda x: x**2, nums))
-print("Squares:", squares)`
-      },
-      {
-        question: "9. Use dictionary comprehension to create a square map.",
-        code: `squares = {x: x**2 for x in range(6)}
-print(squares)`
-      },
-      {
-        question: "10. Find duplicates in a list.",
-        code: `nums = [1, 2, 2, 3, 4, 4, 5]
-duplicates = set([x for x in nums if nums.count(x) > 1])
-print("Duplicates:", duplicates)`
-      },
-      {
-        question: "11. Read a file and print its contents.",
-        code: `with open("example.txt", "r") as file:
-    content = file.read()
-    print(content)`
-      },
-      {
-        question: "12. Handle ZeroDivisionError exception.",
-        code: `try:
-    a = 10 / 0
-except ZeroDivisionError:
-    print("You can't divide by zero!")`
-      },
-      {
-        question: "13. Find factorial using iteration.",
-        code: `def factorial_iter(n):
-    result = 1
-    for i in range(2, n+1):
-        result *= i
-    return result
-
-print(factorial_iter(5))`
-      },
-      {
-        question: "14. Merge two dictionaries.",
-        code: `dict1 = {'a': 1, 'b': 2}
-dict2 = {'b': 3, 'c': 4}
-merged = {**dict1, **dict2}
-print(merged)`
-      },
-      {
-        question: "15. Filter even numbers from a list.",
-        code: `nums = [1, 2, 3, 4, 5, 6]
-evens = list(filter(lambda x: x % 2 == 0, nums))
-print(evens)`
-      },
-      {
-        question: "16. Create a set from a list to remove duplicates.",
-        code: `nums = [1, 2, 2, 3, 4, 4, 5]
-unique_nums = set(nums)
-print(unique_nums)`
-      },
-      {
-        question: "17. Generate Fibonacci series up to n terms.",
-        code: `def fibonacci(n):
-    a, b = 0, 1
-    for _ in range(n):
-        print(a, end=' ')
-        a, b = b, a + b
-
-fibonacci(7)`
-      },
-      {
-        question: "18. Sort a DataFrame by multiple columns.",
+        question: "2.Write a pandas program to sort the dataframe first by 'name' in descending order, then by 'score' in ascending order.",
         code: `import pandas as pd
 
-data = {'name': ['Alice', 'Bob', 'Charlie', 'Bob', 'Alice'],
-        'score': [85, 90, 78, 88, 92]}
+data = {
+    'name': ['Alice', 'Bob', 'Charlie', 'Bob', 'Alice'],
+    'score': [85, 90, 78, 88, 92]
+}
+
 df = pd.DataFrame(data)
 sorted_df = df.sort_values(by=['name', 'score'], ascending=[False, True])
-print(sorted_df)`
+print(sorted_df)
+`
       },
       {
-        question: "19. Check if a string is palindrome.",
-        code: `def is_palindrome(s):
-    return s == s[::-1]
+        question: "3.Write a pandas program to select the rows where the number of attempts in the examination is greater than 2.",
+        code: `import pandas as pd
 
-print(is_palindrome("madam"))`
+data = {
+    'name': ['Alice', 'Bob', 'Charlie', 'David'],
+    'attempts': [1, 3, 2, 4],
+    'score': [85, 90, 78, 92]
+}
+
+df = pd.DataFrame(data)
+filtered_df = df[df['attempts'] > 2]
+print(filtered_df)
+`
+      },
+      {
+        question: "4.Write a pandas program to append a new row 'k' to dataframe with given values for each column. Now delete the new row and return the original dataframe.",
+        code: `import pandas as pd
+
+data = {
+    'name': ['Alice', 'Bob', 'Charlie'],
+    'age': [24, 30, 22],
+    'score': [85, 90, 78]
+}
+
+df = pd.DataFrame(data)
+
+new_row = {'name': 'k', 'age': 28, 'score': 88}
+df = df.append(new_row, ignore_index=True)
+
+df = df.drop(df.index[-1])
+
+print(df)
+`
+      },
+      {
+        question: "5. Draw the frequency distribution table and frequency distribution curve for the following data: 2, 3, 1, 4, 2, 2, 3, 1, 4, 4, 4, 2, 2, 2",
+        code: `import matplotlib.pyplot as plt
+from collections import Counter
+
+data = [2, 3, 1, 4, 2, 2, 3, 1, 4, 4, 4, 2, 2, 2]
+
+freq_dist = Counter(data)
+
+items = sorted(freq_dist.items())
+values = [item[0] for item in items]
+frequencies = [item[1] for item in items]
+
+print("Value  Frequency")
+for v, f in items:
+    print(f"{v}      {f}")
+
+plt.plot(values, frequencies, marker='o')
+plt.title("Frequency Distribution Curve")
+plt.xlabel("Value")
+plt.ylabel("Frequency")
+plt.grid(True)
+plt.show()
+`
+      },
+      {
+        question: "6.The table below gives the values of runs scored by Virat Kohli in last 25 T-20 matches. Represent the data in the form of less than type cumulative frequency distribution:",
+        code: `import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+runs = [45, 34, 50, 75, 22, 56, 0, 63, 8, 70, 49, 33, 14, 39, 86, 92, 88, 70, 56, 50, 57, 45, 42, 12, 39]
+
+max_run = max(runs)
+bins = list(range(0, max_run + 10, 10))
+
+freq, bin_edges = np.histogram(runs, bins=bins)
+
+cum_freq = np.cumsum(freq)
+
+df = pd.DataFrame({
+    'Less than': bin_edges[1:],
+    'Cumulative Frequency': cum_freq
+})
+
+print(df)
+
+plt.plot(df['Less than'], df['Cumulative Frequency'], marker='o', linestyle='-', color='b')
+plt.title('Less Than Type Cumulative Frequency Distribution')
+plt.xlabel('Runs (Less than)')
+plt.ylabel('Cumulative Frequency')
+plt.grid(True)
+plt.show()
+`
+      },
+      {
+        question: "7. Write a python program calculate the probability under a normal curve for normal distribution in statistics.",
+        code: `from scipy.stats import norm
+
+def normal_probability(mean, std_dev, x):
+    probability = norm.cdf(x, loc=mean, scale=std_dev)
+    return probability
+
+mean = 0
+std_dev = 1
+x = 1.5
+
+prob = normal_probability(mean, std_dev, x)
+print(f"The probability P(X <= {x}) for N({mean}, {std_dev}^2) is {prob:.4f}")
+`
+      },
+      {
+        question: "8. Write a python program to implement a multiple linear regression to find the Coefficient, Variance score and plot for residual error.
+
+
+",
+        code: `import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+X = np.array([[1, 2], [2, 3], [4, 5], [3, 6], [6, 7]])
+y = np.array([5, 7, 9, 10, 13])
+
+model = LinearRegression()
+model.fit(X, y)
+
+y_pred = model.predict(X)
+residuals = y - y_pred
+
+print("Coefficients:", model.coef_)
+print("Variance score (R²):", model.score(X, y))
+
+plt.scatter(y_pred, residuals)
+plt.axhline(y=0, color='red', linestyle='--')
+plt.xlabel("Predicted values")
+plt.ylabel("Residuals")
+plt.title("Residual Error Plot")
+plt.show()
+`
+      },
+      {
+        question: "9. Write a Python Program to implement T-Test on a sample of ages using NumPy. ages = [45, 89, 23, 46, 12, 69, 45, 24, 34, 67)",
+        code: `import numpy as np
+from scipy import stats
+
+ages = [45, 89, 23, 46, 12, 69, 45, 24, 34, 67]
+
+ages_array = np.array(ages)
+mean_age = np.mean(ages_array)
+
+t_stat, p_value = stats.ttest_1samp(ages_array, popmean=40)
+
+print("Sample Mean:", mean_age)
+print("T-Statistic:", t_stat)
+print("P-Value:", p_value)
+`
+      },
+      {
+        question: "10. Evaluate the Data Distribution to formulate hypothesis and calculate Z-Test Statistics with Two-Sample using Pandas and SciPy.",
+        code: `import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import norm
+
+group1 = pd.Series([45, 89, 23, 46, 12, 69, 45, 24, 34, 67])
+group2 = pd.Series([55, 76, 44, 30, 28, 70, 33, 48, 59, 64])
+
+plt.hist(group1, bins=5, alpha=0.5, label='Group 1')
+plt.hist(group2, bins=5, alpha=0.5, label='Group 2')
+plt.legend()
+plt.title("Data Distribution")
+plt.xlabel("Value")
+plt.ylabel("Frequency")
+plt.show()
+
+mean1 = group1.mean()
+mean2 = group2.mean()
+std1 = group1.std()
+std2 = group2.std()
+n1 = len(group1)
+n2 = len(group2)
+
+z = (mean1 - mean2) / np.sqrt((std1**2)/n1 + (std2**2)/n2)
+p_value = 2 * (1 - norm.cdf(abs(z)))
+
+print("Group 1 Mean:", mean1)
+print("Group 2 Mean:", mean2)
+print("Z-Statistic:", z)
+print("P-Value:", p_value)
+`
+      },
+      {
+        question: "11.Write a Python program to find the null hypothesis or alternate hypothesis using ANOVA.",
+        code: `import scipy.stats as stats
+
+group1 = [23, 45, 67, 34, 45]
+group2 = [25, 48, 59, 40, 50]
+group3 = [30, 55, 60, 52, 49]
+
+f_stat, p_value = stats.f_oneway(group1, group2, group3)
+
+print("F-Statistic:", f_stat)
+print("P-Value:", p_value)
+
+if p_value < 0.05:
+    print("Reject Null Hypothesis: At least one group mean is different.")
+else:
+    print("Fail to Reject Null Hypothesis: All group means are equal.")
+`
+      },
+      {
+        question: "12.Write a Python program to perform Two-way F-test using ANOVA.",
+        code: `import pandas as pd
+import statsmodels.api as sm
+from statsmodels.formula.api import ols
+
+data = pd.DataFrame({
+    'Score': [85, 90, 88, 75, 70, 65, 80, 78, 82, 60, 63, 67],
+    'Gender': ['Male', 'Male', 'Male', 'Female', 'Female', 'Female', 'Male', 'Male', 'Male', 'Female', 'Female', 'Female'],
+    'Method': ['A', 'A', 'B', 'A', 'A', 'B', 'B', 'B', 'A', 'B', 'B', 'A']
+})
+
+model = ols('Score ~ C(Gender) + C(Method) + C(Gender):C(Method)', data=data).fit()
+anova_table = sm.stats.anova_lm(model, typ=2)
+
+print(anova_table)
+`
+      },
+      {
+        question: "13.Write a Python program to implement One-way F-test using ANOVA.",
+        code: `from scipy.stats import f_oneway
+
+group1 = [23, 45, 67, 34, 45]
+group2 = [25, 48, 59, 40, 50]
+group3 = [30, 55, 60, 52, 49]
+
+f_stat, p_value = f_oneway(group1, group2, group3)
+
+print("F-Statistic:", f_stat)
+print("P-Value:", p_value)
+
+if p_value < 0.05:
+    print("Reject Null Hypothesis: At least one group mean is different.")
+else:
+    print("Fail to Reject Null Hypothesis: All group means are equal.")
+`
+      },
+      {
+        question: "14.Create an average mark for 3 colleges and find the F-Score for the same with its Statistics and PValue.",
+        code: `from scipy.stats import f_oneway
+
+college1 = [70, 75, 80, 85, 90]
+college2 = [65, 70, 72, 68, 74]
+college3 = [85, 88, 84, 90, 87]
+
+f_stat, p_value = f_oneway(college1, college2, college3)
+
+print("F-Statistic:", f_stat)
+print("P-Value:", p_value)
+
+if p_value < 0.05:
+    print("Reject Null Hypothesis: At least one college's average mark is different.")
+else:
+    print("Fail to Reject Null Hypothesis: All colleges have similar average marks.")
+`
+      },
+      {
+        question: "15. Develop a python program for basics implementation of building and validating linear models using a matplotlib",
+        code: `import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
+
+x = np.array([1, 2, 3, 4, 5, 6]).reshape(-1, 1)
+y = np.array([2, 4, 5, 4, 5, 6])
+
+model = LinearRegression()
+model.fit(x, y)
+y_pred = model.predict(x)
+
+r2 = r2_score(y, y_pred)
+
+print("Coefficient (Slope):", model.coef_[0])
+print("Intercept:", model.intercept_)
+print("R² Score:", r2)
+
+plt.scatter(x, y, color='blue', label='Actual Data')
+plt.plot(x, y_pred, color='red', label='Regression Line')
+plt.xlabel('X Values')
+plt.ylabel('Y Values')
+plt.title('Linear Regression Model')
+plt.legend()
+plt.show()
+`
+      },
+      {
+        question: "16. Develop a python program for basics implementation building and validating logistic models using a matplotlib.",
+        code: `import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+
+X = np.array([[1], [2], [3], [4], [5], [6], [7], [8], [9], [10]])
+y = np.array([0, 0, 0, 0, 1, 0, 1, 1, 1, 1])
+
+model = LogisticRegression()
+model.fit(X, y)
+
+y_prob = model.predict_proba(X)[:, 1]
+y_pred = model.predict(X)
+
+accuracy = accuracy_score(y, y_pred)
+
+print("Model Coefficient:", model.coef_[0][0])
+print("Model Intercept:", model.intercept_[0])
+print("Accuracy:", accuracy)
+
+plt.scatter(X, y, color='blue', label='Data points')
+X_test = np.linspace(0, 11, 300).reshape(-1, 1)
+y_test_prob = model.predict_proba(X_test)[:, 1]
+plt.plot(X_test, y_test_prob, color='red', label='Logistic Regression Curve')
+
+plt.xlabel('Feature')
+plt.ylabel('Probability')
+plt.title('Logistic Regression Model')
+plt.legend()
+plt.show()
+`
+      },
+      {
+        question: "17. Write a python program to analyze the time series data to read the airline passenger data into a data frame using pandas and generate a time series plot using Seaborn and Matplotlib.",
+        code: `import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+df = pd.read_csv('airline_passengers.csv')
+df['Month'] = pd.to_datetime(df['Month'])
+
+sns.set(style="darkgrid")
+plt.figure(figsize=(12, 6))
+sns.lineplot(x='Month', y='Passengers', data=df, marker='o')
+plt.title('Monthly Airline Passengers')
+plt.xlabel('Month')
+plt.ylabel('Number of Passengers')
+plt.show()
+`
+      },
+      {
+        question: "18.Write a python program to analyze the time series on data set with Test Statistics, critical value, rolling mean and pvalue and plot the same using matplotlib.",
+        code: `import pandas as pd
+import matplotlib.pyplot as plt
+from statsmodels.tsa.stattools import adfuller
+
+url = 'https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv'
+df = pd.read_csv(url, parse_dates=['Month'], index_col='Month')
+
+data = df.iloc[:, 0]
+
+adf_result = adfuller(data.dropna())
+
+adf_statistic = adf_result[0]
+p_value = adf_result[1]
+critical_values = adf_result[4]
+
+print(f"ADF Statistic: {adf_statistic}")
+print(f"p-value: {p_value}")
+print("Critical Values:")
+for key, value in critical_values.items():
+    print(f"   {key}: {value}")
+
+rolling_mean = data.rolling(window=12).mean()
+
+plt.figure(figsize=(12,6))
+plt.plot(data, label='Original Time Series')
+plt.plot(rolling_mean, color='red', label='Rolling Mean (12 periods)')
+
+textstr = '\n'.join((
+    f'ADF Statistic: {adf_statistic:.4f}',
+    f'p-value: {p_value:.4f}',
+    'Critical Values:',
+    f'  1%: {critical_values["1%"]:.4f}',
+    f'  5%: {critical_values["5%"]:.4f}',
+    f' 10%: {critical_values["10%"]:.4f}',
+))
+
+plt.gca().text(0.05, 0.75, textstr, transform=plt.gca().transAxes,
+               fontsize=10, bbox=dict(facecolor='white', alpha=0.5))
+
+plt.title('Time Series Analysis with ADF Test and Rolling Mean')
+plt.xlabel('Date')
+plt.ylabel('Value')
+plt.legend()
+plt.show()
+`
+      },
+      {
+        question: "19. Write a python Program to analyze the time series on data set with Rolling mean and pvalue and plot the same using matplotlib.",
+        code: `import pandas as pd
+import matplotlib.pyplot as plt
+from statsmodels.tsa.stattools import adfuller
+
+url = 'https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv'
+df = pd.read_csv(url, parse_dates=['Month'], index_col='Month')
+
+data = df['Passengers']
+
+rolling_mean = data.rolling(window=12).mean()
+
+adf_result = adfuller(data.dropna())
+p_value = adf_result[1]
+print(f"ADF test p-value: {p_value:.4f}")
+
+plt.figure(figsize=(12,6))
+plt.plot(data, label='Original Time Series')
+plt.plot(rolling_mean, color='red', label='Rolling Mean (12 periods)')
+plt.title('Time Series with Rolling Mean')
+plt.xlabel('Date')
+plt.ylabel('Value')
+plt.legend()
+plt.show()
+`
       }
     ];
 
