@@ -296,25 +296,24 @@ calculator()
       {
         question: "12. Develop a program for Perceptron algorithm using python",
         code: `import numpy as np
-class Perceptron:
-    def __init__(self, lr=0.1, n=1000): self.lr,self.n,n_iters=lr,n
-    def fit(self,X,y):
-        self.w=np.zeros(X.shape[1]);self.b=0
-        for _ in range(self.n):
-            for xi,t in zip(X,y):
-                u=self.lr*(t-((xi@self.w)+self.b>=0))
-                self.w+=u*xi; self.b+=u
-    def predict(self,X): return ((X@self.w)+self.b>=0).astype(int)
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
 
-if __name__=="__main__":
-    from sklearn.datasets import load_iris
-    from sklearn.model_selection import train_test_split
-    X,y=load_iris(return_X_y=True)
-    X,y=X[y!=2],y[y!=2]
-    Xt,Xv,yt,yv=train_test_split(X,y,test_size=0.2,random_state=42)
-    p=Perceptron()
-    p.fit(Xt,yt)
-    print("Accuracy:",(p.predict(Xv)==yv).mean())
+class Perceptron:
+    def __init__(s, lr=0.1, n=1000): s.lr, s.n = lr, n
+    def fit(s, X, y):
+        s.w, s.b = np.zeros(X.shape[1]), 0
+        for _ in range(s.n):
+            for xi, t in zip(X, y):
+                u = s.lr * (t - ((xi @ s.w + s.b) >= 0))
+                s.w += u * xi; s.b += u
+    def predict(s, X): return ((X @ s.w + s.b) >= 0).astype(int)
+
+X, y = load_iris(return_X_y=True); X, y = X[y!=2], y[y!=2]
+Xt, Xv, yt, yv = train_test_split(X, y, test_size=0.2)
+p = Perceptron(); p.fit(Xt, yt)
+print("Accuracy:", (p.predict(Xv) == yv).mean())
+
 `
       },
       {
