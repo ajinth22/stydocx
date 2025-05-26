@@ -134,465 +134,282 @@
   <script>
     const tabs = [
       {
-        question: "1. Create a DataFrame and manipulate it using pandas.",
-        code: `import pandas as pd
+        question: "1. Implement the non-parametric Locally Weighted Regression algorithm in order to fit data points. Select an appropriate data set for your experiment and draw graphs.",
+        code: `import numpy as np, matplotlib.pyplot as plt
 
-data = {
-    'Name': ['Alice', 'Bob', 'Charlie'],
-    'Age': [24, 30, 22],
-    'City': ['New York', 'Paris', 'London']
-}
+X = np.linspace(0, 10, 100).reshape(-1, 1)
+y = np.sin(X).ravel() + np.random.normal(0, 0.1, 100)
 
-df = pd.DataFrame(data)
-print("Original DataFrame:")
-print(df)
+def predict(xq, X, y, tau):
+    W = np.diag(np.exp(-np.sum((X - xq)**2, axis=1) / (2 * tau**2)))
+    Xb = np.hstack((np.ones_like(X), X))
+    theta = np.linalg.pinv(Xb.T @ W @ Xb) @ Xb.T @ W @ y
+    return np.array([1, xq[0]]) @ theta
 
-df['Salary'] = [50000, 60000, 55000]
-df.drop('City', axis=1, inplace=True)
-df.loc[len(df)] = {'Name': 'David', 'Age': 28, 'Salary': 62000}
-df.drop(1, inplace=True)
-df.rename(columns={'Name': 'Employee Name', 'Age': 'Employee Age'}, inplace=True)
-print("\\nUpdated DataFrame:")
-print(df)`
-      },
-      {
-        question: "2.Write a pandas program to sort the dataframe first by 'name' in descending order, then by 'score' in ascending order.",
-        code: `import pandas as pd
+X_test = np.linspace(0, 10, 200).reshape(-1, 1)
+y_pred = [predict(x, X, y, 0.5) for x in X_test]
 
-data = {
-    'name': ['Alice', 'Bob', 'Charlie', 'Bob', 'Alice'],
-    'score': [85, 90, 78, 88, 92]
-}
-
-df = pd.DataFrame(data)
-sorted_df = df.sort_values(by=['name', 'score'], ascending=[False, True])
-print(sorted_df)
+plt.scatter(X, y, alpha=0.5)
+plt.plot(X_test, y_pred, 'r')
+plt.show()
 `
       },
       {
-        question: "3.Write a pandas program to select the rows where the number of attempts in the examination is greater than 2.",
-        code: `import pandas as pd
-
-data = {
-    'name': ['Alice', 'Bob', 'Charlie', 'David'],
-    'attempts': [1, 3, 2, 4],
-    'score': [85, 90, 78, 92]
-}
-
-df = pd.DataFrame(data)
-filtered_df = df[df['attempts'] > 2]
-print(filtered_df)
+        question: "2.Write a Python Program to Generate a Random Number.",
+        code: `import random
+print(random.randint(1, 100))
 `
       },
       {
-        question: "4.Write a pandas program to append a new row 'k' to dataframe with given values for each column. Now delete the new row and return the original dataframe.",
-        code: `import pandas as pd
+        question: "3.To generate a python code for SVM algorithm..",
+        code: `from sklearn import datasets
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
 
-data = {
-    'name': ['Alice', 'Bob', 'Charlie'],
-    'age': [24, 30, 22],
-    'score': [85, 90, 78]
-}
+# Load and split data
+X, y = datasets.load_iris(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
-df = pd.DataFrame(data)
+# Train and evaluate SVM
+model = SVC()
+model.fit(X_train, y_train)
+print("Accuracy:", model.score(X_test, y_test))
 
-# Updated to use concat() instead of deprecated append()
-new_row = pd.DataFrame({'name': ['k'], 'age': [28], 'score': [88]})
-df = pd.concat([df, new_row], ignore_index=True)
+`
+      },
+      {
+        question: "4. Implement KNN algorithm to classify the data set using python. ",
+        code: `from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
 
-df = df.drop(df.index[-1])
+X, y = load_iris(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+knn = KNeighborsClassifier(n_neighbors=3)
+knn.fit(X_train, y_train)
+print("Accuracy:", knn.score(X_test, y_test))
 
-print(df)
 `,
         note: "Note: Updated to use pd.concat() instead of deprecated df.append()"
       },
       {
-        question: "5. Draw the frequency distribution table and frequency distribution curve for the following data: 2, 3, 1, 4, 2, 2, 3, 1, 4, 4, 4, 2, 2, 2",
-        code: `import matplotlib.pyplot as plt
-from collections import Counter
-
-data = [2, 3, 1, 4, 2, 2, 3, 1, 4, 4, 4, 2, 2, 2]
-
-freq_dist = Counter(data)
-
-items = sorted(freq_dist.items())
-values = [item[0] for item in items]
-frequencies = [item[1] for item in items]
-
-print("Value  Frequency")
-for v, f in items:
-    print(f"{v}      {f}")
-
-plt.plot(values, frequencies, marker='o')
-plt.title("Frequency Distribution Curve")
-plt.xlabel("Value")
-plt.ylabel("Frequency")
-plt.grid(True)
-plt.show()
+        question: "5.  Write a Python Program to Find the Factorial of a Number.",
+        code: `def factorial(n):
+ if n == 0 or n == 1:
+ return 1
+ return n * factorial(n - 1)
+n = int(input("Enter a number: "))
+print("Factorial is:", factorial(n))
 `
       },
       {
-        question: "6.The table below gives the values of runs scored by Virat Kohli in last 25 T-20 matches. Represent the data in the form of less than type cumulative frequency distribution:",
-        code: `import pandas as pd
-import numpy as np
+        question: "6.Generate a python code for K-means algorithm.",
+        code: `from sklearn.datasets import make_blobs
+from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 
-runs = [45, 34, 50, 75, 22, 56, 0, 63, 8, 70, 49, 33, 14, 39, 86, 92, 88, 70, 56, 50, 57, 45, 42, 12, 39]
+X, _ = make_blobs(n_samples=300, centers=3, random_state=42)
+kmeans = KMeans(n_clusters=3)
+kmeans.fit(X)
 
-max_run = max(runs)
-bins = list(range(0, max_run + 10, 10))
-
-freq, bin_edges = np.histogram(runs, bins=bins)
-
-cum_freq = np.cumsum(freq)
-
-df = pd.DataFrame({
-    'Less than': bin_edges[1:],
-    'Cumulative Frequency': cum_freq
-})
-
-print(df)
-
-plt.plot(df['Less than'], df['Cumulative Frequency'], marker='o', linestyle='-', color='b')
-plt.title('Less Than Type Cumulative Frequency Distribution')
-plt.xlabel('Runs (Less than)')
-plt.ylabel('Cumulative Frequency')
-plt.grid(True)
+plt.scatter(X[:, 0], X[:, 1], c=kmeans.labels_)
+plt.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], c='red', marker='x')
 plt.show()
 `
       },
       {
-        question: "7. Write a python program calculate the probability under a normal curve for normal distribution in statistics.",
-        code: `from scipy.stats import norm
-
-def normal_probability(mean, std_dev, x):
-    probability = norm.cdf(x, loc=mean, scale=std_dev)
-    return probability
-
-mean = 0
-std_dev = 1
-x = 1.5
-
-prob = normal_probability(mean, std_dev, x)
-print(f"The probability P(X <= {x}) for N({mean}, {std_dev}^2) is {prob:.4f}")
+        question: "7.Write a Python Program to Print the Fibonacci sequence.",
+        code: `def fibonacci(n):
+ a, b = 0, 1
+ for _ in range(n):
+ print(a, end=' ')
+ a, b = b, a + b
+n = int(input("Enter number of terms: "))
+fibonacci(n)
 `
       },
       {
-        question: "8. Write a python program to implement a multiple linear regression to find the Coefficient, Variance score and plot for residual error.",
+        question: "8. To implement Maximum margin classifier algorithm using python. ",
+        code: `from sklearn import datasets
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+
+X, y = datasets.load_iris(return_X_y=True)
+X, y = X[y != 2], y[y != 2]
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+model = SVC(kernel='linear')
+model.fit(X_train, y_train)
+print("Accuracy:", model.score(X_test, y_test))
+`
+      },
+      {
+        question: "9. . b) Develop a Python code to Check Armstrong Number",
+        code: `def is_armstrong(num):
+ digits = [int(d) for d in str(num)]
+ power = len(digits)
+ total = sum(d ** power for d in digits)
+ return total == num
+n = int(input("Enter a number: "))
+print(f"{n} is Armstrong number." if is_armstrong(n) else f"{n} is
+ not Armstrong number.")
+`
+      },
+      {
+        question: "10. To generate a python code for Random Forests algorithm.",
+        code: `from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+
+X, y = load_iris(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+rf = RandomForestClassifier(n_estimators=100, random_state=42)
+rf.fit(X_train, y_train)
+print("Accuracy:", rf.score(X_test, y_test))
+`
+      },
+      {
+        question: "11.Write a Python Program to Make a Simple Calculator.",
+        code: `def calculator():
+ print("Simple Calculator")
+ num1 = float(input("Enter first number: "))
+ op = input("Enter operator (+, -, *, /): ")
+ num2 = float(input("Enter second number: "))
+ if op == '+':
+ print("Result:", num1 + num2)
+ elif op == '-':
+ print("Result:", num1 - num2)
+ elif op == '*':
+ print("Result:", num1 * num2)
+ elif op == '/':
+ if num2 != 0:
+ print("Result:", num1 / num2)
+ else:
+ print("Error: Division by zero!")
+ else:
+ print("Invalid operator")
+calculator()
+`
+      },
+      {
+        question: "12. Develop a program for Perceptron algorithm using python",
         code: `import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.linear_model import LinearRegression
+class Perceptron:
+    def __init__(self, lr=0.1, n=1000): self.lr,self.n,n_iters=lr,n
+    def fit(self,X,y):
+        self.w=np.zeros(X.shape[1]);self.b=0
+        for _ in range(self.n):
+            for xi,t in zip(X,y):
+                u=self.lr*(t-((xi@self.w)+self.b>=0))
+                self.w+=u*xi; self.b+=u
+    def predict(self,X): return ((X@self.w)+self.b>=0).astype(int)
 
-X = np.array([[1, 2], [2, 3], [4, 5], [3, 6], [6, 7]])
-y = np.array([5, 7, 9, 10, 13])
+if __name__=="__main__":
+    from sklearn.datasets import load_iris
+    from sklearn.model_selection import train_test_split
+    X,y=load_iris(return_X_y=True)
+    X,y=X[y!=2],y[y!=2]
+    Xt,Xv,yt,yv=train_test_split(X,y,test_size=0.2,random_state=42)
+    p=Perceptron()
+    p.fit(Xt,yt)
+    print("Accuracy:",(p.predict(Xv)==yv).mean())
+`
+      },
+      {
+        question: "13.To design a Python Program to Display Calendar",
+        code: `import calendar
+y = int(input("Year: "))
+m = int(input("Month (1-12): "))
+print(calendar.month(y, m))
+
+`
+      },
+      {
+        question: "14. Generate a python code gradient descent algorithm.",
+        code: `import numpy as np
+X = np.array([1,2,3,4,5])
+y = np.array([3,5,7,9,11])
+m = b = 0
+lr = 0.01
+n = len(X)
+for _ in range(1000):
+    y_pred = m*X + b
+    m -= lr * (-2/n) * sum(X*(y - y_pred))
+    b -= lr * (-2/n) * sum(y - y_pred)
+print(f"m = {m:.2f}, b = {b:.2f}")
+`
+      },
+      {
+        question: "15. To write a Python Program to Find Sum of Natural Numbers Using Recursion.",
+        code: `def sum_natural(n):
+    return 1 if n == 1 else n + sum_natural(n - 1)
+
+num = int(input("Enter a number: "))
+print("Sum of natural numbers:", sum_natural(num))
+
+`
+      },
+      {
+        question: "16. Develop a program Simple linear regression algorithm using python.",
+        code: `from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.datasets import make_regression
+
+X, y = make_regression(n_samples=100, n_features=1, noise=10, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 model = LinearRegression()
-model.fit(X, y)
+model.fit(X_train, y_train)
 
-y_pred = model.predict(X)
-residuals = y - y_pred
+print("Coefficient (slope):", model.coef_[0])
+print("Intercept:", model.intercept_)
+print("R^2 score:", model.score(X_test, y_test))
+`
+      },
+      {
+        question: "17.Generate a Python Program to Add Two Matrices",
+        code: `def add_matrices(A, B):
+    return [[A[i][j] + B[i][j] for j in range(len(A[0]))] for i in range(len(A))]
+
+A = [[1, 2, 3], [4, 5, 6]]
+B = [[7, 8, 9], [10, 11, 12]]
+
+for row in add_matrices(A, B):
+    print(row)
+
+`,
+        note: "Note:olanga padinga da"
+      },
+      {
+        question: "18. Write a python code for Multiple linear regression algorithm.",
+        code: `from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.datasets import make_regression
+
+X, y = make_regression(n_samples=100, n_features=3, noise=10, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+model = LinearRegression()
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
 
 print("Coefficients:", model.coef_)
-print("Variance score (R²):", model.score(X, y))
-
-plt.scatter(y_pred, residuals)
-plt.axhline(y=0, color='red', linestyle='--')
-plt.xlabel("Predicted values")
-plt.ylabel("Residuals")
-plt.title("Residual Error Plot")
-plt.show()
-`
-      },
-      {
-        question: "9. Write a Python Program to implement T-Test on a sample of ages using NumPy. ages = [45, 89, 23, 46, 12, 69, 45, 24, 34, 67)",
-        code: `import numpy as np
-from scipy import stats
-
-ages = [45, 89, 23, 46, 12, 69, 45, 24, 34, 67]
-
-ages_array = np.array(ages)
-mean_age = np.mean(ages_array)
-
-t_stat, p_value = stats.ttest_1samp(ages_array, popmean=40)
-
-print("Sample Mean:", mean_age)
-print("T-Statistic:", t_stat)
-print("P-Value:", p_value)
-`
-      },
-      {
-        question: "10. Evaluate the Data Distribution to formulate hypothesis and calculate Z-Test Statistics with Two-Sample using Pandas and SciPy.",
-        code: `import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy.stats import norm
-
-group1 = pd.Series([45, 89, 23, 46, 12, 69, 45, 24, 34, 67])
-group2 = pd.Series([55, 76, 44, 30, 28, 70, 33, 48, 59, 64])
-
-plt.hist(group1, bins=5, alpha=0.5, label='Group 1')
-plt.hist(group2, bins=5, alpha=0.5, label='Group 2')
-plt.legend()
-plt.title("Data Distribution")
-plt.xlabel("Value")
-plt.ylabel("Frequency")
-plt.show()
-
-mean1 = group1.mean()
-mean2 = group2.mean()
-std1 = group1.std()
-std2 = group2.std()
-n1 = len(group1)
-n2 = len(group2)
-
-z = (mean1 - mean2) / np.sqrt((std1**2)/n1 + (std2**2)/n2)
-p_value = 2 * (1 - norm.cdf(abs(z)))
-
-print("Group 1 Mean:", mean1)
-print("Group 2 Mean:", mean2)
-print("Z-Statistic:", z)
-print("P-Value:", p_value)
-`
-      },
-      {
-        question: "11.Write a Python program to find the null hypothesis or alternate hypothesis using ANOVA.",
-        code: `import scipy.stats as stats
-
-group1 = [23, 45, 67, 34, 45]
-group2 = [25, 48, 59, 40, 50]
-group3 = [30, 55, 60, 52, 49]
-
-f_stat, p_value = stats.f_oneway(group1, group2, group3)
-
-print("F-Statistic:", f_stat)
-print("P-Value:", p_value)
-
-if p_value < 0.05:
-    print("Reject Null Hypothesis: At least one group mean is different.")
-else:
-    print("Fail to Reject Null Hypothesis: All group means are equal.")
-`
-      },
-      {
-        question: "12.Write a Python program to perform Two-way F-test using ANOVA.",
-        code: `import pandas as pd
-import statsmodels.api as sm
-from statsmodels.formula.api import ols
-
-data = pd.DataFrame({
-    'Score': [85, 90, 88, 75, 70, 65, 80, 78, 82, 60, 63, 67],
-    'Gender': ['Male', 'Male', 'Male', 'Female', 'Female', 'Female', 'Male', 'Male', 'Male', 'Female', 'Female', 'Female'],
-    'Method': ['A', 'A', 'B', 'A', 'A', 'B', 'B', 'B', 'A', 'B', 'B', 'A']
-})
-
-model = ols('Score ~ C(Gender) + C(Method) + C(Gender):C(Method)', data=data).fit()
-anova_table = sm.stats.anova_lm(model, typ=2)
-
-print(anova_table)
-`
-      },
-      {
-        question: "13.Write a Python program to implement One-way F-test using ANOVA.",
-        code: `from scipy.stats import f_oneway
-
-group1 = [23, 45, 67, 34, 45]
-group2 = [25, 48, 59, 40, 50]
-group3 = [30, 55, 60, 52, 49]
-
-f_stat, p_value = f_oneway(group1, group2, group3)
-
-print("F-Statistic:", f_stat)
-print("P-Value:", p_value)
-
-if p_value < 0.05:
-    print("Reject Null Hypothesis: At least one group mean is different.")
-else:
-    print("Fail to Reject Null Hypothesis: All group means are equal.")
-`
-      },
-      {
-        question: "14.Create an average mark for 3 colleges and find the F-Score for the same with its Statistics and PValue.",
-        code: `from scipy.stats import f_oneway
-
-college1 = [70, 75, 80, 85, 90]
-college2 = [65, 70, 72, 68, 74]
-college3 = [85, 88, 84, 90, 87]
-
-f_stat, p_value = f_oneway(college1, college2, college3)
-
-print("F-Statistic:", f_stat)
-print("P-Value:", p_value)
-
-if p_value < 0.05:
-    print("Reject Null Hypothesis: At least one college's average mark is different.")
-else:
-    print("Fail to Reject Null Hypothesis: All colleges have similar average marks.")
-`
-      },
-      {
-        question: "15. Develop a python program for basics implementation of building and validating linear models using a matplotlib",
-        code: `import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import r2_score
-
-x = np.array([1, 2, 3, 4, 5, 6]).reshape(-1, 1)
-y = np.array([2, 4, 5, 4, 5, 6])
-
-model = LinearRegression()
-model.fit(x, y)
-y_pred = model.predict(x)
-
-r2 = r2_score(y, y_pred)
-
-print("Coefficient (Slope):", model.coef_[0])
 print("Intercept:", model.intercept_)
-print("R² Score:", r2)
+print("R^2 score:", model.score(X_test, y_test))
 
-plt.scatter(x, y, color='blue', label='Actual Data')
-plt.plot(x, y_pred, color='red', label='Regression Line')
-plt.xlabel('X Values')
-plt.ylabel('Y Values')
-plt.title('Linear Regression Model')
-plt.legend()
-plt.show()
-`
-      },
-      {
-        question: "16. Develop a python program for basics implementation building and validating logistic models using a matplotlib.",
-        code: `import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
-
-X = np.array([[1], [2], [3], [4], [5], [6], [7], [8], [9], [10]])
-y = np.array([0, 0, 0, 0, 1, 0, 1, 1, 1, 1])
-
-model = LogisticRegression()
-model.fit(X, y)
-
-y_prob = model.predict_proba(X)[:, 1]
-y_pred = model.predict(X)
-
-accuracy = accuracy_score(y, y_pred)
-
-print("Model Coefficient:", model.coef_[0][0])
-print("Model Intercept:", model.intercept_[0])
-print("Accuracy:", accuracy)
-
-plt.scatter(X, y, color='blue', label='Data points')
-X_test = np.linspace(0, 11, 300).reshape(-1, 1)
-y_test_prob = model.predict_proba(X_test)[:, 1]
-plt.plot(X_test, y_test_prob, color='red', label='Logistic Regression Curve')
-
-plt.xlabel('Feature')
-plt.ylabel('Probability')
-plt.title('Logistic Regression Model')
-plt.legend()
-plt.show()
-`
-      },
-      {
-        question: "17. Write a python program to analyze time series data (sample data generated)",
-        code: `import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-
-# Generate sample time series data
-dates = pd.date_range(start='2020-01-01', periods=24, freq='M')
-values = np.random.randint(100, 500, size=24) + np.arange(24)*10
-
-df = pd.DataFrame({'Date': dates, 'Value': values})
-df.set_index('Date', inplace=True)
-
-plt.figure(figsize=(12, 6))
-plt.plot(df.index, df['Value'], marker='o')
-plt.title('Sample Time Series Data')
-plt.xlabel('Date')
-plt.ylabel('Value')
-plt.grid(True)
-plt.show()
 `,
-        note: "Note: Using generated sample data instead of external CSV file"
+        note: "Note: olanga padinga da"
       },
       {
-        question: "18.Write a python program to analyze time series data with Test Statistics, critical value, rolling mean and pvalue.",
-        code: `import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-from statsmodels.tsa.stattools import adfuller
+        question: "19.Design a Python Program to Sort Words in Alphabetic Order.",
+        code: `def sort_words(text):
+    return sorted(text.split())
 
-# Generate sample data
-np.random.seed(42)
-data = pd.Series(np.cumsum(np.random.randn(100)) + 50
+sentence = input("Enter a sentence: ")
+print("Sorted words:", sort_words(sentence))
 
-# Calculate rolling mean
-rolling_mean = data.rolling(window=12).mean()
-
-# Perform ADF test
-adf_result = adfuller(data.dropna())
-
-adf_statistic = adf_result[0]
-p_value = adf_result[1]
-critical_values = adf_result[4]
-
-print(f"ADF Statistic: {adf_statistic}")
-print(f"p-value: {p_value}")
-print("Critical Values:")
-for key, value in critical_values.items():
-    print(f"   {key}: {value}")
-
-plt.figure(figsize=(12,6))
-plt.plot(data, label='Original Time Series')
-plt.plot(rolling_mean, color='red', label='Rolling Mean (12 periods)')
-
-textstr = '\n'.join((
-    f'ADF Statistic: {adf_statistic:.4f}',
-    f'p-value: {p_value:.4f}',
-    'Critical Values:',
-    f'  1%: {critical_values["1%"]:.4f}',
-    f'  5%: {critical_values["5%"]:.4f}',
-    f' 10%: {critical_values["10%"]:.4f}',
-))
-
-plt.gca().text(0.05, 0.75, textstr, transform=plt.gca().transAxes,
-               fontsize=10, bbox=dict(facecolor='white', alpha=0.5))
-
-plt.title('Time Series Analysis with ADF Test and Rolling Mean')
-plt.xlabel('Date')
-plt.ylabel('Value')
-plt.legend()
-plt.show()
 `,
-        note: "Note: Using generated sample data instead of external CSV file"
-      },
-      {
-        question: "19.Write a python Program to analyze time series data with Rolling mean and pvalue.",
-        code: `import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-from statsmodels.tsa.stattools import adfuller
-
-# Generate sample data
-np.random.seed(42)
-data = pd.Series(np.cumsum(np.random.randn(100)) + 50
-
-rolling_mean = data.rolling(window=12).mean()
-
-adf_result = adfuller(data.dropna())
-p_value = adf_result[1]
-print(f"ADF test p-value: {p_value:.4f}")
-
-plt.figure(figsize=(12,6))
-plt.plot(data, label='Original Time Series')
-plt.plot(rolling_mean, color='red', label='Rolling Mean (12 periods)')
-plt.title('Time Series with Rolling Mean')
-plt.xlabel('Date')
-plt.ylabel('Value')
-plt.legend()
-plt.show()
-`,
-        note: "Note: Using generated sample data instead of external CSV file"
+        note: "Note: olanga padinga da"
       }
     ];
 
