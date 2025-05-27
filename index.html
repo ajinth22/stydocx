@@ -1,491 +1,590 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Stydocx - Python Snippets</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #121212;
-      color: #e0e0e0;
-    }
-    header {
-      display: flex;
-      align-items: center;
-      background-color: #1f1f1f;
-      padding: 15px 30px;
-      border-bottom: 1px solid #333;
-      gap: 15px;
-    }
-    .logo {
-      width: 40px;
-      height: 40px;
-      background-color: #ffcc00;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 24px;
-      color: #121212;
-      user-select: none;
-    }
-    .site-name {
-      font-size: 1.8rem;
-      font-weight: 900;
-      color: #ffcc00;
-      user-select: none;
-      letter-spacing: 2px;
-    }
-    .tabs {
-      display: flex;
-      flex-wrap: wrap;
-      background-color: #1f1f1f;
-      border-bottom: 1px solid #333;
-    }
-    .tab-button {
-      flex: 1 1 25%;
-      padding: 10px;
-      text-align: center;
-      background-color: #1f1f1f;
-      color: #ccc;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      font-weight: bold;
-      font-size: 0.9rem;
-    }
-    .tab-button:hover, .tab-button.active {
-      background-color: #333;
-      color: #fff;
-    }
-    .tab-content {
-      display: none;
-      padding: 30px;
-      background-color: #121212;
-    }
-    .tab-content.active {
-      display: block;
-    }
-    .question {
-      font-size: 1.2rem;
-      margin-bottom: 15px;
-      color: #ffcc00;
-    }
-    pre {
-      background-color: #1e1e1e;
-      padding: 20px;
-      border-radius: 6px;
-      overflow-x: auto;
-      font-family: Consolas, monospace;
-      color: #dcdcdc;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-    }
-    .copy-btn {
-      margin-top: 10px;
-      padding: 8px 16px;
-      border: none;
-      background-color: #333;
-      color: #fff;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.3s;
-    }
-    .copy-btn:hover {
-      background-color: #555;
-    }
-    .requirements {
-      background-color: #2a2a2a;
-      padding: 15px;
-      border-radius: 6px;
-      margin-bottom: 20px;
-    }
-    .note {
-      color: #ff9999;
-      font-style: italic;
-      margin-top: 10px;
-    }
-    @media (max-width: 600px) {
-      .tab-button {
-        flex: 1 1 50%;
-      }
-      header {
-        padding: 15px 15px;
-      }
-      .site-name {
-        font-size: 1.4rem;
-      }
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>stydocx</title>
+    <style>
+        /* Dark theme background and text */
+        body {
+            margin: 0;
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            padding: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Header styled with warm yellow */
+        h1 {
+            font-weight: 900;
+            font-size: 3rem;
+            color: #fbc02d; /* Warm yellow */
+            letter-spacing: 0.1em;
+            margin: 0;
+            user-select: none;
+            text-transform: uppercase;
+            font-family: 'Segoe UI Black', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #fbc02d;
+            margin-bottom: 30px;
+        }
+
+        /* Subheadings */
+        h2 {
+            color: #ffd54f;
+            margin-top: 30px;
+            background-color: #1e1e1e;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        h3 {
+            color: #ffeb3b;
+            margin-top: 20px;
+        }
+
+        /* Solution container */
+        .solution {
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* Code container and code block */
+        .code-container {
+            position: relative;
+            margin: 15px 0;
+        }
+
+        pre {
+            background-color: #212121;
+            color: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            tab-size: 4;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+        }
+
+        /* Copy button styling */
+        .copy-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: #fbc02d;
+            color: #121212;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.3s;
+            user-select: none;
+        }
+
+        .copy-btn:hover {
+            background-color: #f9a825;
+        }
+
+        /* Notes section */
+        .notes {
+            background-color: #2c2c2c;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #fbc02d;
+            margin-top: 20px;
+            color: #fff59d;
+        }
+
+        .notes h3 {
+            margin-top: 0;
+            color: #fbc02d;
+        }
+
+        /* Server-client layout */
+        .server-client {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .server-client > div {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .server-client {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="logo">S</div>
-    <div class="site-name">Stydocx</div>
-  </header>
+    <h1>stydocx</h1>
+    <p style="text-align:center; color:#ccc; margin-top:-20px; margin-bottom:30px;">Python implementations for Jupyter Notebook with copy-friendly code snippets</p>
 
-  <div class="tabs" id="tab-buttons"></div>
-  <div id="tabs-container"></div>
+    <!-- Solution 1 -->
+    <div class="solution">
+        <h2>1. UDP Echo Client/Server</h2>
+        <div class="server-client">
+            <div>
+                <h3>Server:</h3>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>import socket
 
-  <script>
-    const tabs = [
-      {
-        question: "1. Implement the non-parametric Locally Weighted Regression algorithm in order to fit data points. Select an appropriate data set for your experiment and draw graphs.",
-        code: `import numpy as np, matplotlib.pyplot as plt
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock.bind(('localhost', 5000))
+print("UDP Echo Server Ready")
 
-X = np.linspace(0, 10, 100).reshape(-1, 1)
-y = np.sin(X).ravel() + np.random.normal(0, 0.1, 100)
+data, addr = sock.recvfrom(1024)
+sock.sendto(data, addr)
+sock.close()</code></pre>
+                </div>
+            </div>
+            <div>
+                <h3>Client:</h3>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>import socket
 
-def predict(xq, X, y, tau):
-    W = np.diag(np.exp(-np.sum((X - xq)**2, axis=1) / (2 * tau**2)))
-    Xb = np.hstack((np.ones_like(X), X))
-    theta = np.linalg.pinv(Xb.T @ W @ Xb) @ Xb.T @ W @ y
-    return np.array([1, xq[0]]) @ theta
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock.sendto(b"Hello Server", ('localhost', 5000))
+print("Received:", sock.recv(1024).decode())
+sock.close()</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
 
-X_test = np.linspace(0, 10, 200).reshape(-1, 1)
-y_pred = [predict(x, X, y, 0.5) for x in X_test]
-
-plt.scatter(X, y, alpha=0.5)
-plt.plot(X_test, y_pred, 'r')
-plt.show()
-`
-      },
-      {
-        question: "2.Write a Python Program to Generate a Random Number.",
-        code: `import random
-print(random.randint(1, 100))
-`
-      },
-      {
-        question: "3.To generate a python code for SVM algorithm..",
-        code: `from sklearn import datasets
-from sklearn.model_selection import train_test_split
-from sklearn.svm import SVC
-
-# Load and split data
-X, y = datasets.load_iris(return_X_y=True)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-
-# Train and evaluate SVM
-model = SVC()
-model.fit(X_train, y_train)
-print("Accuracy:", model.score(X_test, y_test))
-
-`
-      },
-      {
-        question: "4. Implement KNN algorithm to classify the data set using python. ",
-        code: `from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
-from sklearn.neighbors import KNeighborsClassifier
-
-X, y = load_iris(return_X_y=True)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-knn = KNeighborsClassifier(n_neighbors=3)
-knn.fit(X_train, y_train)
-print("Accuracy:", knn.score(X_test, y_test))
-
-`,
-        note: "Note: Updated to use pd.concat() instead of deprecated df.append()"
-      },
-      {
-        question: "5.  Write a Python Program to Find the Factorial of a Number.",
-        code: `def factorial(n):
-    if n == 0 or n == 1:
-        return 1
-    return n * factorial(n - 1)
-
-n = int(input("Enter a number: "))
-print("Factorial is:", factorial(n))
-
-`
-      },
-      {
-        question: "6.Generate a python code for K-means algorithm.",
-        code: `from sklearn.datasets import make_blobs
-from sklearn.cluster import KMeans
-import matplotlib.pyplot as plt
-
-X, _ = make_blobs(n_samples=300, centers=3, random_state=42)
-kmeans = KMeans(n_clusters=3)
-kmeans.fit(X)
-
-plt.scatter(X[:, 0], X[:, 1], c=kmeans.labels_)
-plt.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], c='red', marker='x')
-plt.show()
-`
-      },
-      {
-        question: "7.Write a Python Program to Print the Fibonacci sequence.",
-        code: `def fibonacci(n):
- a, b = 0, 1
- for _ in range(n):
- print(a, end=' ')
- a, b = b, a + b
-n = int(input("Enter number of terms: "))
-fibonacci(n)
-`
-      },
-      {
-        question: "8. To implement Maximum margin classifier algorithm using python. ",
-        code: `from sklearn import datasets
-from sklearn.model_selection import train_test_split
-from sklearn.svm import SVC
-
-X, y = datasets.load_iris(return_X_y=True)
-X, y = X[y != 2], y[y != 2]
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-model = SVC(kernel='linear')
-model.fit(X_train, y_train)
-print("Accuracy:", model.score(X_test, y_test))
-`
-      },
-      {
-        question: "9. . b) Develop a Python code to Check Armstrong Number",
-        code: `def is_armstrong(num):
-    digits = [int(d) for d in str(num)]
-    power = len(digits)
-    total = sum(d ** power for d in digits)
-    return total == num
-
-n = int(input("Enter a number: "))
-print(f"{n} is an Armstrong number." if is_armstrong(n) else f"{n} is not an Armstrong number.")
-`
-      },
-      {
-        question: "10. To generate a python code for Random Forests algorithm.",
-        code: `from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
-
-X, y = load_iris(return_X_y=True)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-rf = RandomForestClassifier(n_estimators=100, random_state=42)
-rf.fit(X_train, y_train)
-print("Accuracy:", rf.score(X_test, y_test))
-`
-      },
-      {
-        question: "11.Write a Python Program to Make a Simple Calculator.",
-        code: `def calculator():
-    print("Simple Calculator")
-    num1 = float(input("Enter first number: "))
-    op = input("Enter operator (+, -, *, /): ")
-    num2 = float(input("Enter second number: "))
-    
-    if op == '+':
-        print("Result:", num1 + num2)
-    elif op == '-':
-        print("Result:", num1 - num2)
-    elif op == '*':
-        print("Result:", num1 * num2)
-    elif op == '/':
-        if num2 != 0:
-            print("Result:", num1 / num2)
-        else:
-            print("Error: Division by zero!")
-    else:
-        print("Invalid operator")
-
-calculator()
-`
-      },
-      {
-        question: "12. Develop a program for Perceptron algorithm using python",
-        code: `import numpy as np
-from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
-
-class Perceptron:
-    def __init__(s, lr=0.1, n=1000): s.lr, s.n = lr, n
-    def fit(s, X, y):
-        s.w, s.b = np.zeros(X.shape[1]), 0
-        for _ in range(s.n):
-            for xi, t in zip(X, y):
-                u = s.lr * (t - ((xi @ s.w + s.b) >= 0))
-                s.w += u * xi; s.b += u
-    def predict(s, X): return ((X @ s.w + s.b) >= 0).astype(int)
-
-X, y = load_iris(return_X_y=True); X, y = X[y!=2], y[y!=2]
-Xt, Xv, yt, yv = train_test_split(X, y, test_size=0.2)
-p = Perceptron(); p.fit(Xt, yt)
-print("Accuracy:", (p.predict(Xv) == yv).mean())
-
-`
-      },
-      {
-        question: "13.To design a Python Program to Display Calendar",
-        code: `import calendar
-y = int(input("Year: "))
-m = int(input("Month (1-12): "))
-print(calendar.month(y, m))
-
-`
-      },
-      {
-        question: "14. Generate a python code gradient descent algorithm.",
-        code: `import numpy as np
-X = np.array([1,2,3,4,5])
-y = np.array([3,5,7,9,11])
-m = b = 0
-lr = 0.01
-n = len(X)
-for _ in range(1000):
-    y_pred = m*X + b
-    m -= lr * (-2/n) * sum(X*(y - y_pred))
-    b -= lr * (-2/n) * sum(y - y_pred)
-print(f"m = {m:.2f}, b = {b:.2f}")
-`
-      },
-      {
-        question: "15. To write a Python Program to Find Sum of Natural Numbers Using Recursion.",
-        code: `def sum_natural(n):
-    return 1 if n == 1 else n + sum_natural(n - 1)
-
-num = int(input("Enter a number: "))
-print("Sum of natural numbers:", sum_natural(num))
-
-`
-      },
-      {
-        question: "16. Develop a program Simple linear regression algorithm using python.",
-        code: `from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split
-from sklearn.datasets import make_regression
-
-X, y = make_regression(n_samples=100, n_features=1, noise=10, random_state=42)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-model = LinearRegression()
-model.fit(X_train, y_train)
-
-print("Coefficient (slope):", model.coef_[0])
-print("Intercept:", model.intercept_)
-print("R^2 score:", model.score(X_test, y_test))
-`
-      },
-      {
-        question: "17.Generate a Python Program to Add Two Matrices",
-        code: `def add_matrices(A, B):
-    return [[A[i][j] + B[i][j] for j in range(len(A[0]))] for i in range(len(A))]
-
-A = [[1, 2, 3], [4, 5, 6]]
-B = [[7, 8, 9], [10, 11, 12]]
-
-for row in add_matrices(A, B):
-    print(row)
-
-`,
-        note: "Note:olanga padinga da"
-      },
-      {
-        question: "18. Write a python code for Multiple linear regression algorithm.",
-        code: `from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split
-from sklearn.datasets import make_regression
-
-X, y = make_regression(n_samples=100, n_features=3, noise=10, random_state=42)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-model = LinearRegression()
-model.fit(X_train, y_train)
-y_pred = model.predict(X_test)
-
-print("Coefficients:", model.coef_)
-print("Intercept:", model.intercept_)
-print("R^2 score:", model.score(X_test, y_test))
-
-`,
-        note: "Note: olanga padinga da"
-      },
-      {
-        question: "19.Design a Python Program to Sort Words in Alphabetic Order.",
-        code: `def sort_words(text):
-    return sorted(text.split())
-
-sentence = input("Enter a sentence: ")
-print("Sorted words:", sort_words(sentence))
-
-`,
-        note: "Note: olanga padinga da"
-      }
-    ];
-
-    const tabButtonsContainer = document.getElementById('tab-buttons');
-    const tabsContainer = document.getElementById('tabs-container');
-
-    // Add requirements note at the top
-    const requirementsNote = document.createElement('div');
-    requirementsNote.className = 'requirements';
-    requirementsNote.innerHTML = `
-      <strong>Requirements:</strong> To run these Python snippets, you'll need to install:
-      <code>pip install pandas numpy matplotlib scipy scikit-learn statsmodels</code>
-    `;
-    tabsContainer.appendChild(requirementsNote);
-
-    tabs.forEach((tab, index) => {
-      const button = document.createElement('button');
-      button.className = 'tab-button' + (index === 0 ? ' active' : '');
-      button.textContent = `Q${index + 1}`;
-      button.onclick = () => showTab(index);
-      tabButtonsContainer.appendChild(button);
-
-      const tabDiv = document.createElement('div');
-      tabDiv.className = 'tab-content' + (index === 0 ? ' active' : '');
-
-      const question = document.createElement('div');
-      question.className = 'question';
-      question.textContent = tab.question;
-
-      const pre = document.createElement('pre');
-      pre.id = `code${index}`;
-      pre.textContent = tab.code;
-
-      const btn = document.createElement('button');
-      btn.className = 'copy-btn';
-      btn.textContent = 'Copy Code';
-      btn.onclick = () => copyCode(index);
-
-      tabDiv.appendChild(question);
-      tabDiv.appendChild(pre);
-      tabDiv.appendChild(btn);
+    <div class="solution">
+      <h2>2. Datagram Socket Messaging</h2>
       
-      if (tab.note) {
-        const note = document.createElement('div');
-        note.className = 'note';
-        note.textContent = tab.note;
-        tabDiv.appendChild(note);
-      }
+      <div class="server-client">
+          <div>
+              <h3>Server:</h3>
+              <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>import socket
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock.bind(('localhost', 5001))
+msg = input("Enter server message: ")
+sock.sendto(msg.encode(), ('localhost', 5002))
+sock.close()</code></pre>
+              </div>
+          </div>
+          
+          <div>
+              <h3>Client:</h3>
+              <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>import socket
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock.bind(('localhost', 5002))
+print("Message from server:", sock.recv(1024).decode())
+sock.close()</code></pre>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Solution 3 -->
+  <div class="solution">
+      <h2>3. UDP Chat Application</h2>
       
-      tabsContainer.appendChild(tabDiv);
-    });
+      <div class="code-container">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code>import socket
+import threading
 
-    function showTab(index) {
-      const buttons = document.querySelectorAll('.tab-button');
-      const contents = document.querySelectorAll('.tab-content');
+def receiver():
+  sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+  sock.bind(('localhost', 5003))
+  while True:
+      print("\nReceived:", sock.recv(1024).decode())
 
-      buttons.forEach((btn, i) => btn.classList.toggle('active', i === index));
-      contents.forEach((content, i) => content.classList.toggle('active', i === index));
-    }
+threading.Thread(target=receiver, daemon=True).start()
 
-    function copyCode(index) {
-      const code = document.getElementById(`code${index}`).textContent;
-      navigator.clipboard.writeText(code).then(() => {
-        const originalText = document.querySelector(`#code${index} + .copy-btn`).textContent;
-        document.querySelector(`#code${index} + .copy-btn`).textContent = "Copied!";
-        setTimeout(() => {
-          document.querySelector(`#code${index} + .copy-btn`).textContent = originalText;
-        }, 2000);
-      }).catch(err => {
-        console.error('Failed to copy: ', err);
-        alert("Failed to copy code. Please try again or copy manually.");
-      });
-    }
-  </script>
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+while True:
+  message = input("Your message: ")
+  sock.sendto(message.encode(), ('localhost', 5004))</code></pre>
+      </div>
+  </div>
+
+  <!-- Solution 4 -->
+  <div class="solution">
+      <h2>4. Simple UDP Hello Exchange</h2>
+      
+      <div class="server-client">
+          <div>
+              <h3>Server:</h3>
+              <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>import socket
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock.bind(('localhost', 5005))
+data, addr = sock.recvfrom(1024)
+sock.sendto(b"hello client", addr)
+sock.close()</code></pre>
+              </div>
+          </div>
+          
+          <div>
+              <h3>Client:</h3>
+              <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>import socket
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock.sendto(b"hello server", ('localhost', 5005))
+print("Server reply:", sock.recv(1024).decode())
+sock.close()</code></pre>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Solution 5 -->
+  <div class="solution">
+      <h2>5. TCP File Transfer</h2>
+      
+      <div class="server-client">
+          <div>
+              <h3>Server:</h3>
+              <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>import socket
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.bind(('localhost', 5006))
+sock.listen()
+conn, addr = sock.accept()
+filename = conn.recv(1024).decode()
+
+try:
+  with open(filename, 'rb') as f:
+      conn.sendall(f.read())
+except:
+  conn.sendall(b"File not found")
+conn.close()</code></pre>
+              </div>
+          </div>
+          
+          <div>
+              <h3>Client:</h3>
+              <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>import socket
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.connect(('localhost', 5006))
+sock.sendall(b"test.txt")
+with open('received.txt', 'wb') as f:
+  f.write(sock.recv(4096))
+sock.close()</code></pre>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Solution 6 -->
+  <div class="solution">
+      <h2>6. Data Verification</h2>
+      
+      <div class="server-client">
+          <div>
+              <h3>Server:</h3>
+              <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>import socket
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock.bind(('localhost', 5007))
+data, addr = sock.recvfrom(1024)
+sock.sendto(b"ACK" if data == b"test" else b"NAK", addr)
+sock.close()</code></pre>
+              </div>
+          </div>
+          
+          <div>
+              <h3>Client:</h3>
+              <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>import socket
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock.sendto(b"test", ('localhost', 5007))
+print("Verification:", sock.recv(1024).decode())
+sock.close()</code></pre>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Solution 7 -->
+  <div class="solution">
+      <h2>7. Sliding Window Protocol (Window Size 5)</h2>
+      
+      <div class="code-container">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code>window_size = 5
+total_packets = 10
+window = []
+
+for seq in range(1, total_packets+1):
+  if len(window) < window_size:
+      window.append(seq)
+  print(f"Window: {window}")
+  if seq % 3 == 0:  # Simulate ACK
+      print(f"ACK received for {window.pop(0)}")</code></pre>
+      </div>
+  </div>
+
+  <!-- Solution 8 -->
+  <div class="solution">
+      <h2>8. Broadcasting in Local Network</h2>
+      
+      <div class="server-client">
+          <div>
+              <h3>Broadcaster:</h3>
+              <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>import socket
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+sock.sendto(b"Network Broadcast", ('255.255.255.255', 5008))
+sock.close()</code></pre>
+              </div>
+          </div>
+          
+          <div>
+              <h3>Receiver:</h3>
+              <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>import socket
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock.bind(('0.0.0.0', 5008))
+print("Broadcast message:", sock.recv(1024).decode())
+sock.close()</code></pre>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Solution 9 -->
+  <div class="solution">
+      <h2>9. IP Routing with Address Tables</h2>
+      
+      <div class="code-container">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code>routing_table = {
+  '192.168.1.0/24': 'eth0',
+  '10.0.0.0/8': 'eth1',
+  'default': 'eth2'
+}
+
+def route_packet(dest_ip):
+  for network, interface in routing_table.items():
+      if dest_ip in network:
+          return interface
+  return routing_table['default']
+
+print(route_packet('192.168.1.100'))  # Output: eth0
+print(route_packet('10.0.0.5'))      # Output: eth1
+print(route_packet('8.8.8.8'))       # Output: eth2</code></pre>
+      </div>
+  </div>
+
+  <!-- Solution 10 -->
+  <div class="solution">
+      <h2>10. SMTP Client</h2>
+      
+      <div class="code-container">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code>import smtplib
+from email.mime.text import MIMEText
+
+msg = MIMEText("Email body content")
+msg['Subject'] = 'Test Email'
+msg['From'] = 'sender@example.com'
+msg['To'] = 'receiver@example.com'
+
+with smtplib.SMTP('smtp.gmail.com', 587) as server:
+  server.starttls()
+  server.login('your_email@gmail.com', 'your_password')
+  server.send_message(msg)</code></pre>
+      </div>
+  </div>
+
+  <!-- Solution 11 -->
+  <div class="solution">
+      <h2>11. C Program Compilation Server</h2>
+      
+      <div class="server-client">
+          <div>
+              <h3>Server:</h3>
+              <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>import socket
+import subprocess
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.bind(('localhost', 5009))
+sock.listen()
+conn, addr = sock.accept()
+
+with open('received.c', 'wb') as f:
+  f.write(conn.recv(4096))
+
+result = subprocess.run(['gcc', 'received.c', '-o', 'output'], 
+                     capture_output=True)
+if result.returncode == 0:
+  conn.sendall(open('output', 'rb').read())
+else:
+  conn.sendall(result.stderr)
+conn.close()</code></pre>
+              </div>
+          </div>
+          
+          <div>
+              <h3>Client:</h3>
+              <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>import socket
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.connect(('localhost', 5009))
+with open('program.c', 'rb') as f:
+  sock.sendall(f.read())
+response = sock.recv(4096)
+if b"error" in response.lower():
+  print("Compilation failed:", response.decode())
+else:
+  with open('output', 'wb') as f:
+      f.write(response)
+  print("Compilation successful")
+sock.close()</code></pre>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Solution 12 -->
+  <div class="solution">
+      <h2>12. Data Link Layer Framing Methods</h2>
+      
+      <h3>Character Stuffing:</h3>
+      <div class="code-container">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code>def char_stuff(data):
+  flag = 'FLAG'
+  esc = 'ESC'
+  stuffed = data.replace(esc, esc+esc)
+  return f"{flag}{stuffed}{flag}"
+
+print(char_stuff("HelloESCWorld"))</code></pre>
+      </div>
+      
+      <h3>Bit Stuffing:</h3>
+      <div class="code-container">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre><code>def bit_stuff(data):
+  flag = '01111110'
+  stuffed = data.replace('11111', '111110')
+  return f"{flag}{stuffed}{flag}"
+
+print(bit_stuff("110111111101"))</code></pre>
+      </div>
+  </div>
+
+  <!-- Solution 18 -->
+  <div class="solution">
+      <h2>18. UDP File Transfer</h2>
+      
+      <div class="server-client">
+          <div>
+              <h3>Sender:</h3>
+              <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>import socket
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+with open('file.txt', 'rb') as f:
+  while chunk := f.read(1024):
+      sock.sendto(chunk, ('localhost', 5010))
+sock.close()</code></pre>
+              </div>
+          </div>
+          
+          <div>
+              <h3>Receiver:</h3>
+              <div class="code-container">
+                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                  <pre><code>import socket
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock.bind(('localhost', 5010))
+data = b''
+while True:
+  chunk, _ = sock.recvfrom(1024)
+  if not chunk:
+      break
+  data += chunk
+with open('received.txt', 'wb') as f:
+  f.write(data)
+sock.close()</code></pre>
+              </div>
+          </div>
+      </div>
+  </div>
+
+    <div class="notes">
+        <h3>Important Notes:</h3>
+        <ul>
+            <li>Replace 'localhost' with actual IP addresses for network communication</li>
+            <li>Each code block should run in separate Jupyter cells</li>
+            <li>For file operations, ensure files exist in the working directory</li>
+            <li>SMTP requires proper authentication credentials</li>
+            <li>Adjust buffer sizes and ports as needed for your environment</li>
+            <li>For solutions requiring two machines, run server and client on different systems</li>
+            <li>Some solutions may require additional libraries (like smtplib for SMTP)</li>
+        </ul>
+    </div>
+
+    <script>
+        function copyCode(button) {
+            const codeContainer = button.parentElement;
+            const codeElement = codeContainer.querySelector('pre code');
+            const textArea = document.createElement('textarea');
+            textArea.value = codeElement.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+
+            // Visual feedback
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            setTimeout(() => {
+                button.textContent = originalText;
+            }, 2000);
+        }
+    </script>
 </body>
 </html>
