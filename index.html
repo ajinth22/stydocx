@@ -1,590 +1,530 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>stydocx</title>
-    <style>
-        /* Dark theme background and text */
-        body {
-            margin: 0;
-            background-color: #121212;
-            color: #e0e0e0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            max-width: 1200px;
-            padding: 20px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NN & DL LAB Answers</title>
 
-        /* Header styled with warm yellow */
-        h1 {
-            font-weight: 900;
-            font-size: 3rem;
-            color: #fbc02d; /* Warm yellow */
-            letter-spacing: 0.1em;
-            margin: 0;
-            user-select: none;
-            text-transform: uppercase;
-            font-family: 'Segoe UI Black', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            text-align: center;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #fbc02d;
-            margin-bottom: 30px;
-        }
+<style>
 
-        /* Subheadings */
-        h2 {
-            color: #ffd54f;
-            margin-top: 30px;
-            background-color: #1e1e1e;
-            padding: 10px;
-            border-radius: 5px;
-        }
-
-        h3 {
-            color: #ffeb3b;
-            margin-top: 20px;
-        }
-
-        /* Solution container */
-        .solution {
-            background-color: #1e1e1e;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-
-        /* Code container and code block */
-        .code-container {
-            position: relative;
-            margin: 15px 0;
-        }
-
-        pre {
-            background-color: #212121;
-            color: #f0f0f0;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
-            tab-size: 4;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.9rem;
-        }
-
-        /* Copy button styling */
-        .copy-btn {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background-color: #fbc02d;
-            color: #121212;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-            transition: background-color 0.3s;
-            user-select: none;
-        }
-
-        .copy-btn:hover {
-            background-color: #f9a825;
-        }
-
-        /* Notes section */
-        .notes {
-            background-color: #2c2c2c;
-            padding: 15px;
-            border-radius: 5px;
-            border-left: 4px solid #fbc02d;
-            margin-top: 20px;
-            color: #fff59d;
-        }
-
-        .notes h3 {
-            margin-top: 0;
-            color: #fbc02d;
-        }
-
-        /* Server-client layout */
-        .server-client {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .server-client > div {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .server-client {
-                flex-direction: column;
-            }
-        }
-    </style>
-</head>
-<body>
-    <h1>stydocx</h1>
-    <p style="text-align:center; color:#ccc; margin-top:-20px; margin-bottom:30px;">Python implementations for Jupyter Notebook with copy-friendly code snippets</p>
-
-    <!-- Solution 1 -->
-    <div class="solution">
-        <h2>1. UDP Echo Client/Server</h2>
-        <div class="server-client">
-            <div>
-                <h3>Server:</h3>
-                <div class="code-container">
-                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                    <pre><code>import socket
-
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock.bind(('localhost', 5000))
-print("UDP Echo Server Ready")
-
-data, addr = sock.recvfrom(1024)
-sock.sendto(data, addr)
-sock.close()</code></pre>
-                </div>
-            </div>
-            <div>
-                <h3>Client:</h3>
-                <div class="code-container">
-                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                    <pre><code>import socket
-
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock.sendto(b"Hello Server", ('localhost', 5000))
-print("Received:", sock.recv(1024).decode())
-sock.close()</code></pre>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="solution">
-      <h2>2. Datagram Socket Messaging</h2>
-      
-      <div class="server-client">
-          <div>
-              <h3>Server:</h3>
-              <div class="code-container">
-                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                  <pre><code>import socket
-
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock.bind(('localhost', 5001))
-msg = input("Enter server message: ")
-sock.sendto(msg.encode(), ('localhost', 5002))
-sock.close()</code></pre>
-              </div>
-          </div>
-          
-          <div>
-              <h3>Client:</h3>
-              <div class="code-container">
-                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                  <pre><code>import socket
-
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock.bind(('localhost', 5002))
-print("Message from server:", sock.recv(1024).decode())
-sock.close()</code></pre>
-              </div>
-          </div>
-      </div>
-  </div>
-
-  <!-- Solution 3 -->
-  <div class="solution">
-      <h2>3. UDP Chat Application</h2>
-      
-      <div class="code-container">
-          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-          <pre><code>import socket
-import threading
-
-def receiver():
-  sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-  sock.bind(('localhost', 5003))
-  while True:
-      print("\nReceived:", sock.recv(1024).decode())
-
-threading.Thread(target=receiver, daemon=True).start()
-
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-while True:
-  message = input("Your message: ")
-  sock.sendto(message.encode(), ('localhost', 5004))</code></pre>
-      </div>
-  </div>
-
-  <!-- Solution 4 -->
-  <div class="solution">
-      <h2>4. Simple UDP Hello Exchange</h2>
-      
-      <div class="server-client">
-          <div>
-              <h3>Server:</h3>
-              <div class="code-container">
-                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                  <pre><code>import socket
-
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock.bind(('localhost', 5005))
-data, addr = sock.recvfrom(1024)
-sock.sendto(b"hello client", addr)
-sock.close()</code></pre>
-              </div>
-          </div>
-          
-          <div>
-              <h3>Client:</h3>
-              <div class="code-container">
-                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                  <pre><code>import socket
-
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock.sendto(b"hello server", ('localhost', 5005))
-print("Server reply:", sock.recv(1024).decode())
-sock.close()</code></pre>
-              </div>
-          </div>
-      </div>
-  </div>
-
-  <!-- Solution 5 -->
-  <div class="solution">
-      <h2>5. TCP File Transfer</h2>
-      
-      <div class="server-client">
-          <div>
-              <h3>Server:</h3>
-              <div class="code-container">
-                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                  <pre><code>import socket
-
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.bind(('localhost', 5006))
-sock.listen()
-conn, addr = sock.accept()
-filename = conn.recv(1024).decode()
-
-try:
-  with open(filename, 'rb') as f:
-      conn.sendall(f.read())
-except:
-  conn.sendall(b"File not found")
-conn.close()</code></pre>
-              </div>
-          </div>
-          
-          <div>
-              <h3>Client:</h3>
-              <div class="code-container">
-                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                  <pre><code>import socket
-
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.connect(('localhost', 5006))
-sock.sendall(b"test.txt")
-with open('received.txt', 'wb') as f:
-  f.write(sock.recv(4096))
-sock.close()</code></pre>
-              </div>
-          </div>
-      </div>
-  </div>
-
-  <!-- Solution 6 -->
-  <div class="solution">
-      <h2>6. Data Verification</h2>
-      
-      <div class="server-client">
-          <div>
-              <h3>Server:</h3>
-              <div class="code-container">
-                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                  <pre><code>import socket
-
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock.bind(('localhost', 5007))
-data, addr = sock.recvfrom(1024)
-sock.sendto(b"ACK" if data == b"test" else b"NAK", addr)
-sock.close()</code></pre>
-              </div>
-          </div>
-          
-          <div>
-              <h3>Client:</h3>
-              <div class="code-container">
-                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                  <pre><code>import socket
-
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock.sendto(b"test", ('localhost', 5007))
-print("Verification:", sock.recv(1024).decode())
-sock.close()</code></pre>
-              </div>
-          </div>
-      </div>
-  </div>
-
-  <!-- Solution 7 -->
-  <div class="solution">
-      <h2>7. Sliding Window Protocol (Window Size 5)</h2>
-      
-      <div class="code-container">
-          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-          <pre><code>window_size = 5
-total_packets = 10
-window = []
-
-for seq in range(1, total_packets+1):
-  if len(window) < window_size:
-      window.append(seq)
-  print(f"Window: {window}")
-  if seq % 3 == 0:  # Simulate ACK
-      print(f"ACK received for {window.pop(0)}")</code></pre>
-      </div>
-  </div>
-
-  <!-- Solution 8 -->
-  <div class="solution">
-      <h2>8. Broadcasting in Local Network</h2>
-      
-      <div class="server-client">
-          <div>
-              <h3>Broadcaster:</h3>
-              <div class="code-container">
-                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                  <pre><code>import socket
-
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
-sock.sendto(b"Network Broadcast", ('255.255.255.255', 5008))
-sock.close()</code></pre>
-              </div>
-          </div>
-          
-          <div>
-              <h3>Receiver:</h3>
-              <div class="code-container">
-                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                  <pre><code>import socket
-
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock.bind(('0.0.0.0', 5008))
-print("Broadcast message:", sock.recv(1024).decode())
-sock.close()</code></pre>
-              </div>
-          </div>
-      </div>
-  </div>
-
-  <!-- Solution 9 -->
-  <div class="solution">
-      <h2>9. IP Routing with Address Tables</h2>
-      
-      <div class="code-container">
-          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-          <pre><code>routing_table = {
-  '192.168.1.0/24': 'eth0',
-  '10.0.0.0/8': 'eth1',
-  'default': 'eth2'
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-def route_packet(dest_ip):
-  for network, interface in routing_table.items():
-      if dest_ip in network:
-          return interface
-  return routing_table['default']
+body{
+    background:#0d0d0d;
+    color:white;
+    font-family:Arial,sans-serif;
+    padding:30px;
+}
 
-print(route_packet('192.168.1.100'))  # Output: eth0
-print(route_packet('10.0.0.5'))      # Output: eth1
-print(route_packet('8.8.8.8'))       # Output: eth2</code></pre>
-      </div>
-  </div>
+h1{
+    text-align:center;
+    color:#ffcc00;
+    margin-bottom:40px;
+    font-size:50px;
+}
 
-  <!-- Solution 10 -->
-  <div class="solution">
-      <h2>10. SMTP Client</h2>
-      
-      <div class="code-container">
-          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-          <pre><code>import smtplib
-from email.mime.text import MIMEText
+.search-box{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    margin-bottom:30px;
+    background:#1c1c1c;
+    color:white;
+    font-size:18px;
+}
 
-msg = MIMEText("Email body content")
-msg['Subject'] = 'Test Email'
-msg['From'] = 'sender@example.com'
-msg['To'] = 'receiver@example.com'
+.card{
+    background:#1a1a1a;
+    padding:25px;
+    border-radius:15px;
+    margin-bottom:30px;
+    box-shadow:0 0 15px rgba(255,204,0,0.1);
+    transition:0.3s;
+}
 
-with smtplib.SMTP('smtp.gmail.com', 587) as server:
-  server.starttls()
-  server.login('your_email@gmail.com', 'your_password')
-  server.send_message(msg)</code></pre>
-      </div>
-  </div>
+.card:hover{
+    transform:translateY(-5px);
+}
 
-  <!-- Solution 11 -->
-  <div class="solution">
-      <h2>11. C Program Compilation Server</h2>
-      
-      <div class="server-client">
-          <div>
-              <h3>Server:</h3>
-              <div class="code-container">
-                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                  <pre><code>import socket
-import subprocess
+h2{
+    color:#ffd54f;
+    margin-bottom:20px;
+}
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.bind(('localhost', 5009))
-sock.listen()
-conn, addr = sock.accept()
+button{
+    background:#ffcc00;
+    color:black;
+    border:none;
+    padding:10px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+    margin-bottom:15px;
+}
 
-with open('received.c', 'wb') as f:
-  f.write(conn.recv(4096))
+button:hover{
+    background:#ffd633;
+}
 
-result = subprocess.run(['gcc', 'received.c', '-o', 'output'], 
-                     capture_output=True)
-if result.returncode == 0:
-  conn.sendall(open('output', 'rb').read())
-else:
-  conn.sendall(result.stderr)
-conn.close()</code></pre>
-              </div>
-          </div>
-          
-          <div>
-              <h3>Client:</h3>
-              <div class="code-container">
-                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                  <pre><code>import socket
+pre{
+    background:#111;
+    color:#00ff99;
+    padding:20px;
+    border-radius:10px;
+    overflow-x:auto;
+    font-size:15px;
+}
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.connect(('localhost', 5009))
-with open('program.c', 'rb') as f:
-  sock.sendall(f.read())
-response = sock.recv(4096)
-if b"error" in response.lower():
-  print("Compilation failed:", response.decode())
-else:
-  with open('output', 'wb') as f:
-      f.write(response)
-  print("Compilation successful")
-sock.close()</code></pre>
-              </div>
-          </div>
-      </div>
-  </div>
+footer{
+    text-align:center;
+    color:gray;
+    margin-top:50px;
+}
 
-  <!-- Solution 12 -->
-  <div class="solution">
-      <h2>12. Data Link Layer Framing Methods</h2>
-      
-      <h3>Character Stuffing:</h3>
-      <div class="code-container">
-          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-          <pre><code>def char_stuff(data):
-  flag = 'FLAG'
-  esc = 'ESC'
-  stuffed = data.replace(esc, esc+esc)
-  return f"{flag}{stuffed}{flag}"
+</style>
+</head>
 
-print(char_stuff("HelloESCWorld"))</code></pre>
-      </div>
-      
-      <h3>Bit Stuffing:</h3>
-      <div class="code-container">
-          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-          <pre><code>def bit_stuff(data):
-  flag = '01111110'
-  stuffed = data.replace('11111', '111110')
-  return f"{flag}{stuffed}{flag}"
+<body>
 
-print(bit_stuff("110111111101"))</code></pre>
-      </div>
-  </div>
+<h1>NN & DL LAB ANSWERS</h1>
 
-  <!-- Solution 18 -->
-  <div class="solution">
-      <h2>18. UDP File Transfer</h2>
-      
-      <div class="server-client">
-          <div>
-              <h3>Sender:</h3>
-              <div class="code-container">
-                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                  <pre><code>import socket
+<input type="text"
+class="search-box"
+id="searchBox"
+placeholder="Search Answers...">
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-with open('file.txt', 'rb') as f:
-  while chunk := f.read(1024):
-      sock.sendto(chunk, ('localhost', 5010))
-sock.close()</code></pre>
-              </div>
-          </div>
-          
-          <div>
-              <h3>Receiver:</h3>
-              <div class="code-container">
-                  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                  <pre><code>import socket
+<!-- 1 -->
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock.bind(('localhost', 5010))
-data = b''
-while True:
-  chunk, _ = sock.recvfrom(1024)
-  if not chunk:
-      break
-  data += chunk
-with open('received.txt', 'wb') as f:
-  f.write(data)
-sock.close()</code></pre>
-              </div>
-          </div>
-      </div>
-  </div>
+<div class="card">
 
-    <div class="notes">
-        <h3>Important Notes:</h3>
-        <ul>
-            <li>Replace 'localhost' with actual IP addresses for network communication</li>
-            <li>Each code block should run in separate Jupyter cells</li>
-            <li>For file operations, ensure files exist in the working directory</li>
-            <li>SMTP requires proper authentication credentials</li>
-            <li>Adjust buffer sizes and ports as needed for your environment</li>
-            <li>For solutions requiring two machines, run server and client on different systems</li>
-            <li>Some solutions may require additional libraries (like smtplib for SMTP)</li>
-        </ul>
-    </div>
+<h2>1. Vector Addition using TensorFlow</h2>
 
-    <script>
-        function copyCode(button) {
-            const codeContainer = button.parentElement;
-            const codeElement = codeContainer.querySelector('pre code');
-            const textArea = document.createElement('textarea');
-            textArea.value = codeElement.textContent;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
+<button onclick="copyCode(this)">Copy Code</button>
 
-            // Visual feedback
-            const originalText = button.textContent;
-            button.textContent = 'Copied!';
-            setTimeout(() => {
-                button.textContent = originalText;
-            }, 2000);
+<pre><code>
+import tensorflow as tf
+
+a = tf.constant([2, 3])
+b = tf.constant([4, 5])
+
+result = tf.add(a, b)
+
+print("Vector a:", a.numpy())
+print("Vector b:", b.numpy())
+print("a + b =", result.numpy())
+</code></pre>
+
+</div>
+
+<!-- 2 -->
+
+<div class="card">
+
+<h2>2. Regression Model in Keras</h2>
+
+<button onclick="copyCode(this)">Copy Code</button>
+
+<pre><code>
+import numpy as np
+
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+
+X = np.array([[25,2],[30,4],[35,5],[40,7]], dtype=float)
+
+y = np.array([2000,3000,4000,5000], dtype=float)
+
+model = Sequential([
+    Dense(4, activation='relu', input_shape=(2,)),
+    Dense(1)
+])
+
+model.compile(optimizer='adam', loss='mse')
+
+model.fit(X, y, epochs=100, verbose=0)
+
+print(model.predict(np.array([[38,6]])))
+</code></pre>
+
+</div>
+
+<!-- 3 -->
+
+<div class="card">
+
+<h2>3. Single Layer Perceptron</h2>
+
+<button onclick="copyCode(this)">Copy Code</button>
+
+<pre><code>
+import numpy as np
+
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+
+X = np.array([[0,0],[0,1],[1,0],[1,1]])
+
+y = np.array([0,0,0,1])
+
+model = Sequential([
+    Dense(1, activation='sigmoid', input_shape=(2,))
+])
+
+model.compile(
+    optimizer='adam',
+    loss='binary_crossentropy',
+    metrics=['accuracy']
+)
+
+model.fit(X, y, epochs=100, verbose=0)
+
+print(model.predict(X))
+</code></pre>
+
+</div>
+
+<!-- 4 -->
+
+<div class="card">
+
+<h2>4. Feed Forward Network</h2>
+
+<button onclick="copyCode(this)">Copy Code</button>
+
+<pre><code>
+import numpy as np
+
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+
+X = np.array([[0,0],[0,1],[1,0],[1,1]])
+
+y = np.array([[0],[1],[1],[0]])
+
+model = Sequential([
+    Dense(4, activation='relu', input_shape=(2,)),
+    Dense(1, activation='sigmoid')
+])
+
+model.compile(
+    optimizer='adam',
+    loss='binary_crossentropy'
+)
+
+model.fit(X, y, epochs=200, verbose=0)
+
+print(model.predict(X))
+</code></pre>
+
+</div>
+
+<!-- 5 -->
+
+<div class="card">
+
+<h2>5. CNN Image Classifier</h2>
+
+<button onclick="copyCode(this)">Copy Code</button>
+
+<pre><code>
+import tensorflow as tf
+
+import matplotlib.pyplot as plt
+
+from tensorflow.keras import layers, models
+
+(X, y), _ = tf.keras.datasets.mnist.load_data()
+
+plt.imshow(X[0], cmap='gray')
+plt.show()
+
+model = models.Sequential([
+
+    layers.Conv2D(
+        32,
+        (3,3),
+        activation='relu',
+        input_shape=(28,28,1)
+    ),
+
+    layers.Flatten(),
+
+    layers.Dense(10, activation='softmax')
+
+])
+
+print("CNN Model Ready")
+</code></pre>
+
+</div>
+
+<!-- 6 -->
+
+<div class="card">
+
+<h2>6. Hyperparameter Tuning</h2>
+
+<button onclick="copyCode(this)">Copy Code</button>
+
+<pre><code>
+import tensorflow as tf
+
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+
+import numpy as np
+
+X = np.array([[0],[1],[2],[3]], dtype=float)
+
+y = np.array([[0],[2],[4],[6]], dtype=float)
+
+model = Sequential([
+    Dense(16, activation='relu', input_shape=(1,)),
+    Dense(1)
+])
+
+optimizer = tf.keras.optimizers.Adam(
+    learning_rate=0.01
+)
+
+model.compile(
+    optimizer=optimizer,
+    loss='mse'
+)
+
+model.fit(X, y, epochs=200, verbose=0)
+
+print(model.predict(np.array([[5]])))
+</code></pre>
+
+</div>
+
+<!-- 7 -->
+
+<div class="card">
+
+<h2>7. Transfer Learning Concept</h2>
+
+<button onclick="copyCode(this)">Copy Code</button>
+
+<pre><code>
+import tensorflow as tf
+
+from tensorflow.keras.applications import MobileNetV2
+
+model = MobileNetV2(weights='imagenet')
+
+print("Transfer Learning Implemented")
+</code></pre>
+
+</div>
+
+<!-- 8 -->
+
+<div class="card">
+
+<h2>8. Transfer Learning using MobileNetV2</h2>
+
+<button onclick="copyCode(this)">Copy Code</button>
+
+<pre><code>
+import tensorflow as tf
+
+import matplotlib.pyplot as plt
+
+from tensorflow.keras.applications import MobileNetV2
+
+(X, y), _ = tf.keras.datasets.cifar10.load_data()
+
+plt.imshow(X[0])
+
+plt.show()
+
+model = MobileNetV2(weights='imagenet')
+
+print("Transfer Learning Done")
+</code></pre>
+
+</div>
+
+<!-- 9 -->
+
+<div class="card">
+
+<h2>9. Sentiment Analysis using RNN</h2>
+
+<button onclick="copyCode(this)">Copy Code</button>
+
+<pre><code>
+import numpy as np
+
+from tensorflow.keras.models import Sequential
+
+from tensorflow.keras.layers import (
+    Embedding,
+    SimpleRNN,
+    Dense
+)
+
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+
+X = [[1,2,3],[2,3,4],[1,4,5]]
+
+y = np.array([1,0,1])
+
+X = pad_sequences(X, maxlen=5)
+
+model = Sequential([
+
+    Embedding(
+        input_dim=10,
+        output_dim=8,
+        input_length=5
+    ),
+
+    SimpleRNN(8),
+
+    Dense(1, activation='sigmoid')
+
+])
+
+model.compile(
+    optimizer='adam',
+    loss='binary_crossentropy',
+    metrics=['accuracy']
+)
+
+model.fit(X, y, epochs=10, verbose=0)
+
+print(model.predict(X))
+</code></pre>
+
+</div>
+
+<!-- 10 -->
+
+<div class="card">
+
+<h2>10. LSTM Autoencoder</h2>
+
+<button onclick="copyCode(this)">Copy Code</button>
+
+<pre><code>
+import numpy as np
+
+from tensorflow.keras.models import Sequential
+
+from tensorflow.keras.layers import (
+    LSTM,
+    RepeatVector,
+    TimeDistributed,
+    Dense
+)
+
+X = np.random.rand(10,5,1)
+
+model = Sequential([
+
+    LSTM(8, input_shape=(5,1)),
+
+    RepeatVector(5),
+
+    LSTM(8, return_sequences=True),
+
+    TimeDistributed(Dense(1))
+
+])
+
+model.compile(
+    optimizer='adam',
+    loss='mse'
+)
+
+model.fit(X, X, epochs=10, verbose=0)
+
+print("LSTM Autoencoder Ready")
+</code></pre>
+
+</div>
+
+<!-- 11 -->
+
+<div class="card">
+
+<h2>11. GAN Image Generation</h2>
+
+<button onclick="copyCode(this)">Copy Code</button>
+
+<pre><code>
+import numpy as np
+
+import matplotlib.pyplot as plt
+
+from tensorflow.keras.datasets import mnist
+
+(X_train, y_train), _ = mnist.load_data()
+
+index = np.random.randint(0, len(X_train))
+
+image = X_train[index]
+
+plt.imshow(image, cmap='gray')
+
+plt.title("Digit: " + str(y_train[index]))
+
+plt.axis('off')
+
+plt.show()
+</code></pre>
+
+</div>
+
+<footer>
+NN & DL LAB WEBSITE
+</footer>
+
+<script>
+
+function copyCode(button){
+
+    const code =
+    button.nextElementSibling.innerText;
+
+    navigator.clipboard.writeText(code);
+
+    button.innerText = "Copied!";
+
+    setTimeout(()=>{
+        button.innerText = "Copy Code";
+    },2000);
+}
+
+document.getElementById("searchBox")
+.addEventListener("keyup", function(){
+
+    let value = this.value.toLowerCase();
+
+    let cards = document.querySelectorAll(".card");
+
+    cards.forEach(card=>{
+
+        if(card.innerText.toLowerCase().includes(value)){
+            card.style.display = "block";
         }
-    </script>
+        else{
+            card.style.display = "none";
+        }
+
+    });
+
+});
+
+</script>
+
 </body>
 </html>
