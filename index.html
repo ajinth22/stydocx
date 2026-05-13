@@ -2,528 +2,246 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NN & DL LAB Answers</title>
-
+<title>IOT Lab Programs</title>
 <style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+body {
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: #fff;
+    padding: 20px;
 }
 
-body{
-    background:#0d0d0d;
-    color:white;
-    font-family:Arial,sans-serif;
-    padding:30px;
+h1 {
+    text-align: center;
+    margin-bottom: 40px;
 }
 
-h1{
-    text-align:center;
-    color:#ffcc00;
-    margin-bottom:40px;
-    font-size:50px;
+.card {
+    background: #1e293b;
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
-.search-box{
-    width:100%;
-    padding:15px;
-    border:none;
-    border-radius:10px;
-    margin-bottom:30px;
-    background:#1c1c1c;
-    color:white;
-    font-size:18px;
+h2 {
+    color: #38bdf8;
 }
 
-.card{
-    background:#1a1a1a;
-    padding:25px;
-    border-radius:15px;
-    margin-bottom:30px;
-    box-shadow:0 0 15px rgba(255,204,0,0.1);
-    transition:0.3s;
+pre {
+    background: #020617;
+    padding: 15px;
+    border-radius: 8px;
+    overflow-x: auto;
 }
 
-.card:hover{
-    transform:translateY(-5px);
+button {
+    margin-top: 10px;
+    padding: 8px 15px;
+    background: #38bdf8;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
-h2{
-    color:#ffd54f;
-    margin-bottom:20px;
+button:hover {
+    background: #0ea5e9;
 }
-
-button{
-    background:#ffcc00;
-    color:black;
-    border:none;
-    padding:10px 18px;
-    border-radius:8px;
-    cursor:pointer;
-    font-weight:bold;
-    margin-bottom:15px;
-}
-
-button:hover{
-    background:#ffd633;
-}
-
-pre{
-    background:#111;
-    color:#00ff99;
-    padding:20px;
-    border-radius:10px;
-    overflow-x:auto;
-    font-size:15px;
-}
-
-footer{
-    text-align:center;
-    color:gray;
-    margin-top:50px;
-}
-
 </style>
 </head>
 
 <body>
 
-<h1>NN & DL LAB ANSWERS</h1>
+<h1>IOT Lab Programs</h1>
 
-<input type="text"
-class="search-box"
-id="searchBox"
-placeholder="Search Answers...">
-
-<!-- 1 -->
-
+<!-- Program 1 -->
 <div class="card">
-
-<h2>1. Vector Addition using TensorFlow</h2>
-
-<button onclick="copyCode(this)">Copy Code</button>
-
-<pre><code>
-import tensorflow as tf
-
-a = tf.constant([2, 3])
-b = tf.constant([4, 5])
-
-result = tf.add(a, b)
-
-print("Vector a:", a.numpy())
-print("Vector b:", b.numpy())
-print("a + b =", result.numpy())
-</code></pre>
-
+<h2>1. Addition and Multiplication</h2>
+<pre id="code1">
+#include <REG51.H>
+unsigned char a, b;
+void main()
+{
+ a = 0x05;
+ b = 0x03;
+ P1 = a + b;
+ P2 = a * b;
+ while(1);
+}
+</pre>
+<button onclick="copyCode('code1')">Copy Code</button>
 </div>
 
-<!-- 2 -->
-
+<!-- Program 2 -->
 <div class="card">
-
-<h2>2. Regression Model in Keras</h2>
-
-<button onclick="copyCode(this)">Copy Code</button>
-
-<pre><code>
-import numpy as np
-
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense
-
-X = np.array([[25,2],[30,4],[35,5],[40,7]], dtype=float)
-
-y = np.array([2000,3000,4000,5000], dtype=float)
-
-model = Sequential([
-    Dense(4, activation='relu', input_shape=(2,)),
-    Dense(1)
-])
-
-model.compile(optimizer='adam', loss='mse')
-
-model.fit(X, y, epochs=100, verbose=0)
-
-print(model.predict(np.array([[38,6]])))
-</code></pre>
-
+<h2>2. Transfer Between Register</h2>
+<pre id="code2">
+#include <REG51.H>
+void main()
+{
+ unsigned char a, b;
+ a = 0x25;
+ b = a;
+ P1 = b;
+ while(1);
+}
+</pre>
+<button onclick="copyCode('code2')">Copy Code</button>
 </div>
 
-<!-- 3 -->
-
+<!-- Program 3 -->
 <div class="card">
-
-<h2>3. Single Layer Perceptron</h2>
-
-<button onclick="copyCode(this)">Copy Code</button>
-
-<pre><code>
-import numpy as np
-
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense
-
-X = np.array([[0,0],[0,1],[1,0],[1,1]])
-
-y = np.array([0,0,0,1])
-
-model = Sequential([
-    Dense(1, activation='sigmoid', input_shape=(2,))
-])
-
-model.compile(
-    optimizer='adam',
-    loss='binary_crossentropy',
-    metrics=['accuracy']
-)
-
-model.fit(X, y, epochs=100, verbose=0)
-
-print(model.predict(X))
-</code></pre>
-
+<h2>3. Memory to Register Transfer</h2>
+<pre id="code3">
+#include <REG51.H>
+unsigned char memory_data;
+unsigned char reg_data;
+void main()
+{
+ memory_data = 0x45;
+ reg_data = memory_data;
+ P1 = reg_data;
+ while(1);
+}
+</pre>
+<button onclick="copyCode('code3')">Copy Code</button>
 </div>
 
-<!-- 4 -->
-
+<!-- Program 4 -->
 <div class="card">
-
-<h2>4. Feed Forward Network</h2>
-
-<button onclick="copyCode(this)">Copy Code</button>
-
-<pre><code>
-import numpy as np
-
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense
-
-X = np.array([[0,0],[0,1],[1,0],[1,1]])
-
-y = np.array([[0],[1],[1],[0]])
-
-model = Sequential([
-    Dense(4, activation='relu', input_shape=(2,)),
-    Dense(1, activation='sigmoid')
-])
-
-model.compile(
-    optimizer='adam',
-    loss='binary_crossentropy'
-)
-
-model.fit(X, y, epochs=200, verbose=0)
-
-print(model.predict(X))
-</code></pre>
-
+<h2>4. Subtraction and Division</h2>
+<pre id="code4">
+#include <REG51.H>
+unsigned char a, b, sub, div;
+void main()
+{
+ a = 0x05;
+ b = 0x03;
+ sub = a - b;
+ div = a / b;
+ P1 = sub;
+ P2 = div;
+ while(1);
+}
+</pre>
+<button onclick="copyCode('code4')">Copy Code</button>
 </div>
 
-<!-- 5 -->
-
+<!-- Program 7 -->
 <div class="card">
+<h2>7. Logical Operations</h2>
+<pre id="code7">
+#include <REG51.H>
+unsigned char a = 0x05;
+unsigned char b = 0x03;
+unsigned char and1, or1, xor1, not1;
 
-<h2>5. CNN Image Classifier</h2>
+void main()
+{
+ and1 = a & b;
+ or1 = a | b;
+ xor1 = a ^ b;
+ not1 = ~a;
 
-<button onclick="copyCode(this)">Copy Code</button>
+ P0 = and1;
+ P1 = or1;
+ P2 = xor1;
+ P3 = not1;
 
-<pre><code>
-import tensorflow as tf
-
-import matplotlib.pyplot as plt
-
-from tensorflow.keras import layers, models
-
-(X, y), _ = tf.keras.datasets.mnist.load_data()
-
-plt.imshow(X[0], cmap='gray')
-plt.show()
-
-model = models.Sequential([
-
-    layers.Conv2D(
-        32,
-        (3,3),
-        activation='relu',
-        input_shape=(28,28,1)
-    ),
-
-    layers.Flatten(),
-
-    layers.Dense(10, activation='softmax')
-
-])
-
-print("CNN Model Ready")
-</code></pre>
-
+ while(1);
+}
+</pre>
+<button onclick="copyCode('code7')">Copy Code</button>
 </div>
 
-<!-- 6 -->
-
+<!-- Program 8 -->
 <div class="card">
-
-<h2>6. Hyperparameter Tuning</h2>
-
-<button onclick="copyCode(this)">Copy Code</button>
-
-<pre><code>
-import tensorflow as tf
-
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense
-
-import numpy as np
-
-X = np.array([[0],[1],[2],[3]], dtype=float)
-
-y = np.array([[0],[2],[4],[6]], dtype=float)
-
-model = Sequential([
-    Dense(16, activation='relu', input_shape=(1,)),
-    Dense(1)
-])
-
-optimizer = tf.keras.optimizers.Adam(
-    learning_rate=0.01
-)
-
-model.compile(
-    optimizer=optimizer,
-    loss='mse'
-)
-
-model.fit(X, y, epochs=200, verbose=0)
-
-print(model.predict(np.array([[5]])))
-</code></pre>
-
-</div>
-
-<!-- 7 -->
-
-<div class="card">
-
-<h2>7. Transfer Learning Concept</h2>
-
-<button onclick="copyCode(this)">Copy Code</button>
-
-<pre><code>
-import tensorflow as tf
-
-from tensorflow.keras.applications import MobileNetV2
-
-model = MobileNetV2(weights='imagenet')
-
-print("Transfer Learning Implemented")
-</code></pre>
-
-</div>
-
-<!-- 8 -->
-
-<div class="card">
-
-<h2>8. Transfer Learning using MobileNetV2</h2>
-
-<button onclick="copyCode(this)">Copy Code</button>
-
-<pre><code>
-import tensorflow as tf
-
-import matplotlib.pyplot as plt
-
-from tensorflow.keras.applications import MobileNetV2
-
-(X, y), _ = tf.keras.datasets.cifar10.load_data()
-
-plt.imshow(X[0])
-
-plt.show()
-
-model = MobileNetV2(weights='imagenet')
-
-print("Transfer Learning Done")
-</code></pre>
-
-</div>
-
-<!-- 9 -->
-
-<div class="card">
-
-<h2>9. Sentiment Analysis using RNN</h2>
-
-<button onclick="copyCode(this)">Copy Code</button>
-
-<pre><code>
-import numpy as np
-
-from tensorflow.keras.models import Sequential
-
-from tensorflow.keras.layers import (
-    Embedding,
-    SimpleRNN,
-    Dense
-)
-
-from tensorflow.keras.preprocessing.sequence import pad_sequences
-
-X = [[1,2,3],[2,3,4],[1,4,5]]
-
-y = np.array([1,0,1])
-
-X = pad_sequences(X, maxlen=5)
-
-model = Sequential([
-
-    Embedding(
-        input_dim=10,
-        output_dim=8,
-        input_length=5
-    ),
-
-    SimpleRNN(8),
-
-    Dense(1, activation='sigmoid')
-
-])
-
-model.compile(
-    optimizer='adam',
-    loss='binary_crossentropy',
-    metrics=['accuracy']
-)
-
-model.fit(X, y, epochs=10, verbose=0)
-
-print(model.predict(X))
-</code></pre>
-
-</div>
-
-<!-- 10 -->
-
-<div class="card">
-
-<h2>10. LSTM Autoencoder</h2>
-
-<button onclick="copyCode(this)">Copy Code</button>
-
-<pre><code>
-import numpy as np
-
-from tensorflow.keras.models import Sequential
-
-from tensorflow.keras.layers import (
-    LSTM,
-    RepeatVector,
-    TimeDistributed,
-    Dense
-)
-
-X = np.random.rand(10,5,1)
-
-model = Sequential([
-
-    LSTM(8, input_shape=(5,1)),
-
-    RepeatVector(5),
-
-    LSTM(8, return_sequences=True),
-
-    TimeDistributed(Dense(1))
-
-])
-
-model.compile(
-    optimizer='adam',
-    loss='mse'
-)
-
-model.fit(X, X, epochs=10, verbose=0)
-
-print("LSTM Autoencoder Ready")
-</code></pre>
-
-</div>
-
-<!-- 11 -->
-
-<div class="card">
-
-<h2>11. GAN Image Generation</h2>
-
-<button onclick="copyCode(this)">Copy Code</button>
-
-<pre><code>
-import numpy as np
-
-import matplotlib.pyplot as plt
-
-from tensorflow.keras.datasets import mnist
-
-(X_train, y_train), _ = mnist.load_data()
-
-index = np.random.randint(0, len(X_train))
-
-image = X_train[index]
-
-plt.imshow(image, cmap='gray')
-
-plt.title("Digit: " + str(y_train[index]))
-
-plt.axis('off')
-
-plt.show()
-</code></pre>
-
-</div>
-
-<footer>
-NN & DL LAB WEBSITE
-</footer>
-
-<script>
-
-function copyCode(button){
-
-    const code =
-    button.nextElementSibling.innerText;
-
-    navigator.clipboard.writeText(code);
-
-    button.innerText = "Copied!";
-
-    setTimeout(()=>{
-        button.innerText = "Copy Code";
-    },2000);
+<h2>8. UART Communication</h2>
+<pre id="code8">
+#include <REG51.H>
+
+void UART_Init()
+{
+ TMOD = 0x20;
+ TH1 = 0xFD;
+ SCON = 0x50;
+ TR1 = 1;
 }
 
-document.getElementById("searchBox")
-.addEventListener("keyup", function(){
+void UART_Send(char ch)
+{
+ SBUF = ch;
+ while(TI == 0);
+ TI = 0;
+}
 
-    let value = this.value.toLowerCase();
+void main()
+{
+ UART_Init();
+ UART_Send('H');
+ UART_Send('I');
+ while(1);
+}
+</pre>
+<button onclick="copyCode('code8')">Copy Code</button>
+</div>
 
-    let cards = document.querySelectorAll(".card");
+<!-- Program 9 -->
+<div class="card">
+<h2>9. Compare Two Numbers</h2>
+<pre id="code9">
+#include <REGX51.H>
+unsigned char num1 = 25;
+unsigned char num2 = 15;
 
-    cards.forEach(card=>{
+void main()
+{
+ if(num1 > num2)
+  P1 = 0xFF;
+ else if(num1 < num2)
+  P1 = 0x00;
+ else
+  P1 = 0xAA;
 
-        if(card.innerText.toLowerCase().includes(value)){
-            card.style.display = "block";
-        }
-        else{
-            card.style.display = "none";
-        }
+ while(1);
+}
+</pre>
+<button onclick="copyCode('code9')">Copy Code</button>
+</div>
 
-    });
+<!-- Program 11 -->
+<div class="card">
+<h2>11. Raspberry Pi Sensor</h2>
+<pre id="code11">
+from machine import Pin, time_pulse_us
+import time
 
-});
+trig = Pin(3, Pin.OUT)
+echo = Pin(2, Pin.IN)
 
+while True:
+ trig.low()
+ time.sleep_us(2)
+ trig.high()
+ time.sleep_us(10)
+ trig.low()
+
+ duration = time_pulse_us(echo, 1)
+ distance = duration / 58
+
+ print("Distance:", distance, "cm")
+ time.sleep(1)
+</pre>
+<button onclick="copyCode('code11')">Copy Code</button>
+</div>
+
+<!-- JS -->
+<script>
+function copyCode(id) {
+    const code = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(code);
+    alert("Code copied!");
+}
 </script>
 
 </body>
