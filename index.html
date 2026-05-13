@@ -3,25 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <title>IOT Lab Programs</title>
+
 <style>
 body {
-    font-family: Arial, sans-serif;
-    background: #0f172a;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0f172a, #020617);
     color: #fff;
     padding: 20px;
 }
 
 h1 {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 .card {
-    background: #1e293b;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
     padding: 20px;
-    margin-bottom: 25px;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    margin-bottom: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
 h2 {
@@ -31,16 +33,17 @@ h2 {
 pre {
     background: #020617;
     padding: 15px;
-    border-radius: 8px;
+    border-radius: 10px;
     overflow-x: auto;
+    color: #22c55e;
 }
 
 button {
     margin-top: 10px;
     padding: 8px 15px;
-    background: #38bdf8;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
+    background: #38bdf8;
     cursor: pointer;
 }
 
@@ -52,197 +55,236 @@ button:hover {
 
 <body>
 
-<h1>IOT Lab Programs</h1>
+<h1>IOT Lab Programs (All Questions)</h1>
 
-<!-- Program 1 -->
+<script>
+function copyCode(id){
+    let text = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(text);
+    alert("Copied!");
+}
+</script>
+
+<!-- PROGRAM TEMPLATE -->
+
 <div class="card">
 <h2>1. Addition and Multiplication</h2>
-<pre id="code1">
-#include <REG51.H>
+<pre id="p1">#include &lt;REG51.H&gt;
 unsigned char a, b;
-void main()
-{
- a = 0x05;
- b = 0x03;
- P1 = a + b;
- P2 = a * b;
+void main(){
+ a=0x05; b=0x03;
+ P1=a+b;
+ P2=a*b;
  while(1);
-}
-</pre>
-<button onclick="copyCode('code1')">Copy Code</button>
+}</pre>
+<button onclick="copyCode('p1')">Copy Code</button>
 </div>
 
-<!-- Program 2 -->
 <div class="card">
 <h2>2. Transfer Between Register</h2>
-<pre id="code2">
-#include <REG51.H>
-void main()
-{
- unsigned char a, b;
- a = 0x25;
- b = a;
- P1 = b;
+<pre id="p2">#include &lt;REG51.H&gt;
+void main(){
+ unsigned char a,b;
+ a=0x25;
+ b=a;
+ P1=b;
  while(1);
-}
-</pre>
-<button onclick="copyCode('code2')">Copy Code</button>
+}</pre>
+<button onclick="copyCode('p2')">Copy Code</button>
 </div>
 
-<!-- Program 3 -->
 <div class="card">
-<h2>3. Memory to Register Transfer</h2>
-<pre id="code3">
-#include <REG51.H>
-unsigned char memory_data;
-unsigned char reg_data;
-void main()
-{
- memory_data = 0x45;
- reg_data = memory_data;
- P1 = reg_data;
+<h2>3. Memory to Register</h2>
+<pre id="p3">#include &lt;REG51.H&gt;
+unsigned char memory_data,reg_data;
+void main(){
+ memory_data=0x45;
+ reg_data=memory_data;
+ P1=reg_data;
  while(1);
-}
-</pre>
-<button onclick="copyCode('code3')">Copy Code</button>
+}</pre>
+<button onclick="copyCode('p3')">Copy Code</button>
 </div>
 
-<!-- Program 4 -->
 <div class="card">
 <h2>4. Subtraction and Division</h2>
-<pre id="code4">
-#include <REG51.H>
-unsigned char a, b, sub, div;
-void main()
-{
- a = 0x05;
- b = 0x03;
- sub = a - b;
- div = a / b;
- P1 = sub;
- P2 = div;
+<pre id="p4">#include &lt;REG51.H&gt;
+unsigned char a,b,sub,div;
+void main(){
+ a=0x05; b=0x03;
+ sub=a-b;
+ div=a/b;
+ P1=sub;
+ P2=div;
  while(1);
-}
-</pre>
-<button onclick="copyCode('code4')">Copy Code</button>
+}</pre>
+<button onclick="copyCode('p4')">Copy Code</button>
 </div>
 
-<!-- Program 7 -->
 <div class="card">
-<h2>7. Logical Operations</h2>
-<pre id="code7">
-#include <REG51.H>
-unsigned char a = 0x05;
-unsigned char b = 0x03;
-unsigned char and1, or1, xor1, not1;
-
-void main()
-{
- and1 = a & b;
- or1 = a | b;
- xor1 = a ^ b;
- not1 = ~a;
-
- P0 = and1;
- P1 = or1;
- P2 = xor1;
- P3 = not1;
-
+<h2>5. ALU Operation</h2>
+<pre id="p5">#include &lt;REG51.H&gt;
+unsigned char a,b,add,sub,mul,div;
+void main(){
+ a=0x08; b=0x02;
+ add=a+b;
+ sub=a-b;
+ mul=a*b;
+ div=a/b;
+ P0=add;
+ P1=sub;
+ P2=mul;
+ P3=div;
  while(1);
-}
-</pre>
-<button onclick="copyCode('code7')">Copy Code</button>
+}</pre>
+<button onclick="copyCode('p5')">Copy Code</button>
 </div>
 
-<!-- Program 8 -->
 <div class="card">
-<h2>8. UART Communication</h2>
-<pre id="code8">
-#include <REG51.H>
+<h2>6. Arithmetic Operation</h2>
+<pre id="p6">#include &lt;REG51.H&gt;
+unsigned char a,b,add,sub,mul,div;
+void main(){
+ a=0x08; b=0x02;
+ add=a+b;
+ sub=a-b;
+ mul=a*b;
+ div=a/b;
+ P0=add;
+ P1=sub;
+ P2=mul;
+ P3=div;
+ while(1);
+}</pre>
+<button onclick="copyCode('p6')">Copy Code</button>
+</div>
 
-void UART_Init()
-{
- TMOD = 0x20;
- TH1 = 0xFD;
- SCON = 0x50;
- TR1 = 1;
+<div class="card">
+<h2>7. Logical Operation</h2>
+<pre id="p7">#include &lt;REG51.H&gt;
+unsigned char a=0x05,b=0x03;
+unsigned char and1,or1,xor1,not1;
+void main(){
+ and1=a&b;
+ or1=a|b;
+ xor1=a^b;
+ not1=~a;
+ P0=and1;
+ P1=or1;
+ P2=xor1;
+ P3=not1;
+ while(1);
+}</pre>
+<button onclick="copyCode('p7')">Copy Code</button>
+</div>
+
+<div class="card">
+<h2>8. IoT Zigbee Communication</h2>
+<pre id="p8">#include &lt;REG51.H&gt;
+void UART_Init(){
+ TMOD=0x20;
+ TH1=0xFD;
+ SCON=0x50;
+ TR1=1;
 }
-
-void UART_Send(char ch)
-{
- SBUF = ch;
- while(TI == 0);
- TI = 0;
+void UART_Send(char ch){
+ SBUF=ch;
+ while(TI==0);
+ TI=0;
 }
-
-void main()
-{
+void main(){
  UART_Init();
  UART_Send('H');
  UART_Send('I');
  while(1);
-}
-</pre>
-<button onclick="copyCode('code8')">Copy Code</button>
+}</pre>
+<button onclick="copyCode('p8')">Copy Code</button>
 </div>
 
-<!-- Program 9 -->
 <div class="card">
 <h2>9. Compare Two Numbers</h2>
-<pre id="code9">
-#include <REGX51.H>
-unsigned char num1 = 25;
-unsigned char num2 = 15;
-
-void main()
-{
- if(num1 > num2)
-  P1 = 0xFF;
- else if(num1 < num2)
-  P1 = 0x00;
- else
-  P1 = 0xAA;
-
+<pre id="p9">#include &lt;REGX51.H&gt;
+unsigned char num1=25,num2=15;
+void main(){
+ if(num1>num2) P1=0xFF;
+ else if(num1<num2) P1=0x00;
+ else P1=0xAA;
  while(1);
-}
-</pre>
-<button onclick="copyCode('code9')">Copy Code</button>
+}</pre>
+<button onclick="copyCode('p9')">Copy Code</button>
 </div>
 
-<!-- Program 11 -->
+<div class="card">
+<h2>10. Comparison Operation</h2>
+<pre id="p10">#include &lt;REGX51.H&gt;
+unsigned char a=20,b=10;
+void main(){
+ if(a>b) P1=0x01;
+ if(a<b) P1=0x02;
+ if(a==b) P1=0x03;
+ while(1);
+}</pre>
+<button onclick="copyCode('p10')">Copy Code</button>
+</div>
+
 <div class="card">
 <h2>11. Raspberry Pi Sensor</h2>
-<pre id="code11">
-from machine import Pin, time_pulse_us
+<pre id="p11">from machine import Pin,time_pulse_us
 import time
-
-trig = Pin(3, Pin.OUT)
-echo = Pin(2, Pin.IN)
-
+trig=Pin(3,Pin.OUT)
+echo=Pin(2,Pin.IN)
 while True:
  trig.low()
  time.sleep_us(2)
  trig.high()
  time.sleep_us(10)
  trig.low()
-
- duration = time_pulse_us(echo, 1)
- distance = duration / 58
-
- print("Distance:", distance, "cm")
- time.sleep(1)
-</pre>
-<button onclick="copyCode('code11')">Copy Code</button>
+ duration=time_pulse_us(echo,1)
+ distance=duration/58
+ print("Distance:",distance,"cm")
+ time.sleep(1)</pre>
+<button onclick="copyCode('p11')">Copy Code</button>
 </div>
 
-<!-- JS -->
-<script>
-function copyCode(id) {
-    const code = document.getElementById(id).innerText;
-    navigator.clipboard.writeText(code);
-    alert("Code copied!");
+<div class="card">
+<h2>12. Cloud Data Logging</h2>
+<pre id="p12">import requests,time,random
+API_KEY="YOUR_API_KEY"
+for i in range(5):
+ temp=random.randint(25,35)
+ url="https://api.thingspeak.com/update?api_key={}&field1={}".format(API_KEY,temp)
+ requests.get(url)
+ print("Uploaded:",temp)
+ time.sleep(15)</pre>
+<button onclick="copyCode('p12')">Copy Code</button>
+</div>
+
+<div class="card">
+<h2>13. Arduino Program</h2>
+<pre id="p13">void setup(){
+ pinMode(13,OUTPUT);
 }
-</script>
+void loop(){
+ digitalWrite(13,HIGH);
+ delay(1000);
+ digitalWrite(13,LOW);
+ delay(1000);
+}</pre>
+<button onclick="copyCode('p13')">Copy Code</button>
+</div>
+
+<div class="card">
+<h2>15. Raspberry Pi Cloud Upload</h2>
+<pre id="p15">import requests,time,random
+API_KEY="YOUR_API_KEY"
+for i in range(5):
+ temp=random.randint(25,35)
+ url="https://api.thingspeak.com/update?api_key={}&field1={}".format(API_KEY,temp)
+ requests.get(url)
+ print("Uploaded:",temp)
+ time.sleep(15)</pre>
+<button onclick="copyCode('p15')">Copy Code</button>
+</div>
 
 </body>
 </html>
